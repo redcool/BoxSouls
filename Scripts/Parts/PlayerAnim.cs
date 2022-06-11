@@ -12,6 +12,10 @@ namespace BoxSouls
     public class PlayerAnim : BaseUpdater
     {
 
+        public bool IsInJumpState => anim.IsInState(Consts.AnimatorLayerNames.OVERRIDE, Consts.AnimatorStateNames.JUMP_LAUNCH)
+            || anim.IsInState(Consts.AnimatorLayerNames.OVERRIDE, Consts.AnimatorStateNames.FALLING)
+            || anim.IsInState(Consts.AnimatorLayerNames.OVERRIDE, Consts.AnimatorStateNames.LAND);
+
         public override void Update()
         {
             UpdateMoveAnim();
@@ -27,13 +31,14 @@ namespace BoxSouls
         public void JumpLaunch()
         {
             anim.SetBool(Consts.AnimatorParameters.IS_JUMP_LUANCH, true);
+            //PlayAnimAndSetInteracting(Consts.AnimatorStateNames.JUMP_LAUNCH, true);
             anim.CrossFade(Consts.AnimatorStateNames.JUMP_LAUNCH, 0.2f);
         }
 
         private void UpdateMoveAnim()
         {
             var speedX = inputControl.movement.x;
-            if (!playerControl.IsLock)
+            if (!playerControl.IsLockTarget)
                 speedX = 0;
 
             anim.SetFloat(Consts.AnimatorParameters.SPEED_X, speedX, 0.2f, Time.deltaTime);
@@ -42,7 +47,7 @@ namespace BoxSouls
 
         void UpdateRollingSprint()
         {
-            var canTriggerRolling = inputControl.isRolling && !playerControl.IsInteracting;
+            var canTriggerRolling = inputControl.isRolling && !playerControl.IsInteracting && ! IsInJumpState;
             if (canTriggerRolling)
             {
                 var moveDir = playerControl.MoveDir;

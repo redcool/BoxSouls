@@ -33,5 +33,12 @@ namespace BoxSouls
                 ;
 
         }
+
+        public class AnimatorLayerNames
+        {
+            public const string BaseLayer = "Base Layer",
+                OVERRIDE = "Override"
+                ;
+        }
     }
 }

@@ -82,12 +82,13 @@ namespace BoxSouls
             }
         }
 
-        public bool IsLock => attackTarget;
+        public bool IsLockTarget => attackTarget;
         public bool IsInteracting => anim.GetBool(Consts.AnimatorParameters.IS_INTERACTING);
         public bool IsFalling => anim.GetBool(Consts.AnimatorParameters.IS_FALLING);
         public bool IsGrounded => playerLocomotion.IsGrounded;
-
         public bool IsJumpLaunch => anim.GetBool(Consts.AnimatorParameters.IS_JUMP_LUANCH);
+
+
 
     }
 }

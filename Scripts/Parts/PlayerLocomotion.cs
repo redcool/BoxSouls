@@ -33,7 +33,7 @@ namespace BoxSouls
             UpdateMoveAmount(movementInput);
 
 
-            if (playerControl.IsLock)
+            if (playerControl.IsLockTarget)
                 playerControl.moveDirToAttackTarget = (playerControl.attackTarget.position - transform.position).normalized;
         }
 
@@ -73,7 +73,7 @@ namespace BoxSouls
         void UpdateRigidMove(Vector3 moveDir)
         {
             var targetSpeed = inputControl.isSprint ? sprintSpeed : moveSpeed;
-            if (playerControl.IsLock)
+            if (playerControl.IsLockTarget)
             {
                 moveDir = playerControl.moveDirToAttackTarget;
             }
