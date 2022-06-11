@@ -12,7 +12,8 @@ namespace BoxSouls
     public class PlayerAnim : BaseUpdater
     {
 
-        public bool IsInJumpState => anim.IsInState(Consts.AnimatorLayerNames.OVERRIDE, Consts.AnimatorStateNames.JUMP_LAUNCH)
+        public bool IsInJumpState =>
+            anim.IsInState(Consts.AnimatorLayerNames.OVERRIDE, Consts.AnimatorStateNames.JUMP_LAUNCH)
             || anim.IsInState(Consts.AnimatorLayerNames.OVERRIDE, Consts.AnimatorStateNames.FALLING)
             || anim.IsInState(Consts.AnimatorLayerNames.OVERRIDE, Consts.AnimatorStateNames.LAND);
 
@@ -21,6 +22,7 @@ namespace BoxSouls
             UpdateMoveAnim();
             UpdateRollingSprint();
             UpdateFallingAndLand();
+            UpdateAttack();
         }
 
         public void PlayAnimAndSetInteracting(string stateName,bool isInteracting)
@@ -38,11 +40,15 @@ namespace BoxSouls
         private void UpdateMoveAnim()
         {
             var speedX = inputControl.movement.x;
+            var speedZ = inputControl.movement.y;
             if (!playerControl.IsLockTarget)
+            {
                 speedX = 0;
+                speedZ = playerLocomotion.moveAmount;
+            }
 
             anim.SetFloat(Consts.AnimatorParameters.SPEED_X, speedX, 0.2f, Time.deltaTime);
-            anim.SetFloat(Consts.AnimatorParameters.SPEED_Z, playerControl.moveAmount, 0.2f, Time.deltaTime);
+            anim.SetFloat(Consts.AnimatorParameters.SPEED_Z, speedZ, 0.2f, Time.deltaTime);
         }
 
         void UpdateRollingSprint()
@@ -50,7 +56,7 @@ namespace BoxSouls
             var canTriggerRolling = inputControl.isRolling && !playerControl.IsInteracting && ! IsInJumpState;
             if (canTriggerRolling)
             {
-                var moveDir = playerControl.MoveDir;
+                var moveDir = playerLocomotion.moveDir;
                 moveDir.y = 0;
 
                 anim.SetBool(Consts.AnimatorParameters.IS_INTERACTING, true);
@@ -83,6 +89,18 @@ namespace BoxSouls
                 anim.SetBool(Consts.AnimatorParameters.IS_FALLING, true);
                 PlayAnimAndSetInteracting(Consts.AnimatorStateNames.FALLING, false);
             }
+        }
+
+        void UpdateAttack()
+        {
+            var canAttack = inputControl.RB && !playerControl.IsInteracting;
+
+            if (canAttack)
+            {
+                PlayAnimAndSetInteracting(Consts.AnimatorStateNames.OH_ATTACK1, true);
+
+            }
+            inputControl.RB = false;
         }
 
     }

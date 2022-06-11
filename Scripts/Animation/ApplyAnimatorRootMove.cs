@@ -25,7 +25,7 @@ namespace BoxSouls
             var pos = anim.deltaPosition;
             velocity = pos / Time.deltaTime;
 
-            playerControl.rootMotionVelocity = velocity;
+            playerControl.playerLocomotion.rootMotionVelocity = velocity;
         }
 
     }

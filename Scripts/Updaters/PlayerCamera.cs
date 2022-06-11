@@ -32,7 +32,7 @@ namespace BoxSouls
             Assert.IsNotNull(cameraLookTarget, "cameraLookTarget must assign !");
 
             var cameraInputDir = inputControl.look;
-            UpdateCameraLookTarget(cameraInputDir, Time.deltaTime, playerControl.attackTarget);
+            UpdateCameraLookTarget(cameraInputDir, Time.deltaTime);
         }
 
         void InitCameraInput()
@@ -41,11 +41,12 @@ namespace BoxSouls
             rotateY = cameraLookTarget.eulerAngles.x;
         }
 
-        void UpdateCameraLookTarget(Vector2 lookInputDir, float deltaTime, Transform target)
+        void UpdateCameraLookTarget(Vector2 lookInputDir, float deltaTime)
         {
-            if (target)
+            if (playerControl.IsLockTarget)
             {
-                cameraLookTarget.forward = playerControl.moveDirToAttackTarget;
+                var dir = playerLocomotion.moveDirToAttackTarget;
+                cameraLookTarget.forward = dir;
                 return;
             }
 

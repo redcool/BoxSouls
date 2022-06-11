@@ -17,6 +17,7 @@ namespace BoxSouls
 
         public Animator anim => playerControl.anim;
         public PlayerAnim playerAnim => playerControl.playerAnim;
+        public PlayerLocomotion playerLocomotion => playerControl.playerLocomotion;
 
         public virtual void Init(PlayerUpdateControl playerControl) {
             this.playerControl = playerControl;

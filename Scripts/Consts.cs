@@ -25,11 +25,20 @@ namespace BoxSouls
 
         public class AnimatorStateNames
         {
-            public const string ROLLING = "Rolling",
+            public const string
+                ROLL_FORWARD = "RollForward",
+                ROLL_LEFT = "RollLeft",
+                ROLL_RIGHT = "RollRight",
+                ROLLING = "Rolling",
                 STEP_BACK = "StepBack",
-                FALLING="Falling",
-                LAND="Land",
-                JUMP_LAUNCH ="JumpLaunch"
+                FALLING = "Falling",
+                LAND = "Land",
+                JUMP_LAUNCH = "JumpLaunch",
+                OH_ATTACK1 = "oh_attack_1",
+                OH_ATTACK2 = "oh_attack_2",
+                OH_ATTACK3 = "oh_attack_3",
+                TH_ATTACK1 = "th_attack_1",
+                TH_ATTACK2 = "th_attack_2"
                 ;
 
         }

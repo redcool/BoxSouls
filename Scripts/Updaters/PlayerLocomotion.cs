@@ -17,7 +17,13 @@ namespace BoxSouls
         public float moveSpeed = 4;
         public float sprintSpeed = 6;
 
-        
+        [Header("State Vars")]
+        public Vector3 moveDir;
+        public Vector3 moveDirToAttackTarget;
+        public float moveAmount;
+        public Vector3 rootMotionVelocity;
+
+
         public bool IsGrounded => rigidCharacter.isGrounded;
 
         public override void Init(PlayerUpdateControl playerControl)
@@ -28,13 +34,13 @@ namespace BoxSouls
         }
         public override void Update()
         {
-            var movementInput = playerControl.inputControl.movement;
-            playerControl.moveDir = CameraTools.CalcMoveDirection(playerControl.camTr, movementInput);
+            var movementInput = inputControl.movement;
+            moveDir = CameraTools.CalcMoveDirection(playerControl.camTr, movementInput);
             UpdateMoveAmount(movementInput);
 
 
             if (playerControl.IsLockTarget)
-                playerControl.moveDirToAttackTarget = (playerControl.attackTarget.position - transform.position).normalized;
+                moveDirToAttackTarget = (playerControl.attackTarget.position - transform.position - Vector3.up*2);
         }
 
         public override void FixedUpdate()
@@ -42,13 +48,15 @@ namespace BoxSouls
             base.FixedUpdate();
 
             var moveScale = playerControl.IsInteracting ? 0 : 1;
-            var moveDir = playerControl.moveDir * moveScale;
+
+            moveDir *= moveScale;
+            //moveDirToAttackTarget *= moveScale;
+
             var deltaTime = Time.deltaTime;
 
-            UpdateRigidMove(moveDir);
+            UpdateMove(moveDir);
             UpdateRotate(moveDir, deltaTime);
             UpdateJump(moveDir, deltaTime);
-            //UpdateFalling(moveDir, deltaTime);
         }
 
         private void UpdateJump(Vector3 moveDir, float fixedDeltaTime)
@@ -65,21 +73,18 @@ namespace BoxSouls
         ///----------------------------- player movement
         void UpdateMoveAmount(Vector2 movementInput)
         {
-            playerControl.moveAmount = Mathf.Clamp01(Mathf.Abs(movementInput.x) + Mathf.Abs(movementInput.y));
+            moveAmount = Mathf.Clamp01(Mathf.Abs(movementInput.x) + Mathf.Abs(movementInput.y));
             if (inputControl.isSprint)
-                playerControl.moveAmount *= 2;
+                moveAmount *= 2;
         }
 
-        void UpdateRigidMove(Vector3 moveDir)
+        void UpdateMove(Vector3 moveDir)
         {
             var targetSpeed = inputControl.isSprint ? sprintSpeed : moveSpeed;
-            if (playerControl.IsLockTarget)
-            {
-                moveDir = playerControl.moveDirToAttackTarget;
-            }
+
             moveDir *= targetSpeed;
 
-            rigidCharacter.rootMotionVelocity = playerControl.rootMotionVelocity;
+            rigidCharacter.rootMotionVelocity = rootMotionVelocity;
             rigidCharacter.MoveRigidbody(ref moveDir);
 
             Debug.DrawRay(rigid.position, moveDir, Color.blue);
@@ -87,6 +92,11 @@ namespace BoxSouls
 
         void UpdateRotate(Vector3 moveDir, float deltaTime)
         {
+            if (playerControl.IsLockTarget)
+            {
+                moveDir = moveDirToAttackTarget;
+            }
+
             moveDir.y = 0;
 
             if (moveDir.sqrMagnitude < 0.01f)

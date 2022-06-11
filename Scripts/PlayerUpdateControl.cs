@@ -20,6 +20,7 @@ namespace BoxSouls
         public PlayerLocomotion playerLocomotion = new PlayerLocomotion();
         public PlayerCamera playerCamera = new PlayerCamera();
         public PlayerAnim playerAnim = new PlayerAnim();
+        public PlayerWeaponControl playerWeaponControl = new PlayerWeaponControl();
 
         [Header("Attack Target")]
         public Transform attackTarget;
@@ -27,12 +28,7 @@ namespace BoxSouls
         [Header("Camera Look")]
         public Transform cameraLookTarget;
 
-        [Header("State Vars")]
-        public Vector3 moveDir;
-        public Vector3 moveDirToAttackTarget;
-        public Vector3 MoveDir => moveDir;
-        public float moveAmount;
-        public Vector3 rootMotionVelocity;
+
 
         public List<BaseUpdater> updateList = new List<BaseUpdater>();
         public List<BaseUpdater> fixedUpdateList = new List<BaseUpdater>();
@@ -47,14 +43,19 @@ namespace BoxSouls
             camTr = Camera.main.transform;
             anim = GetComponentInChildren<Animator>();
 
+            InitUpdaters();
+        }
 
+        private void InitUpdaters()
+        {
             playerLocomotion.Init(this);
             playerCamera.Init(this);
             playerAnim.Init(this);
+            playerWeaponControl.Init(this);
 
-            updateList.AddRange(new BaseUpdater[] {playerLocomotion,playerAnim });
-            fixedUpdateList.AddRange(new BaseUpdater[] { playerLocomotion});
-            lateUpdateList.AddRange(new BaseUpdater[] {playerCamera });
+            updateList.AddRange(new BaseUpdater[] { playerLocomotion, playerAnim });
+            fixedUpdateList.AddRange(new BaseUpdater[] { playerLocomotion });
+            lateUpdateList.AddRange(new BaseUpdater[] { playerCamera });
         }
 
         // Update is called once per frame
