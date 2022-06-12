@@ -26,7 +26,7 @@ namespace BoxSouls
 
         public bool IsGrounded => rigidCharacter.isGrounded;
 
-        public override void Init(PlayerUpdateControl playerControl)
+        public override void Init(PlayerControl playerControl)
         {
             base.Init(playerControl);
 

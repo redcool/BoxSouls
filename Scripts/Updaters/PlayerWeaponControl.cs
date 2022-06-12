@@ -15,7 +15,7 @@ namespace BoxSouls
 
         public WeaponItem defaultWeapon;
 
-        public override void Init(PlayerUpdateControl playerControl)
+        public override void Init(PlayerControl playerControl)
         {
             base.Init(playerControl);
 

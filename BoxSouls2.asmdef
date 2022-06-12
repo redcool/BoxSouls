@@ -2,7 +2,8 @@
     "name": "BoxSouls2",
     "rootNamespace": "BoxSouls",
     "references": [
-        "GUID:4d7978c8e91b36c4898b68b93a664cc7"
+        "GUID:4d7978c8e91b36c4898b68b93a664cc7",
+        "GUID:4307f53044263cf4b835bd812fc161a4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -39,6 +39,9 @@ namespace BoxSouls
 
         private void UpdateMoveAnim()
         {
+            if (playerControl.IsInteracting)
+                return;
+
             var speedX = inputControl.movement.x;
             var speedZ = inputControl.movement.y;
             if (!playerControl.IsLockTarget)

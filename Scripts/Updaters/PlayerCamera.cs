@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,22 @@ namespace BoxSouls
     {
         [Header("Camera")]
         public float cameraSensitive = 10;
+        [Range(0,1)]public float virtualCameraSide = 0.5f;
 
         float rotateX;
         float rotateY;
         Transform cameraLookTarget => playerControl.cameraLookTarget;
 
-        public override void Init(PlayerUpdateControl playerControl)
+        Cinemachine3rdPersonFollow tpsFollow;
+
+        public override void Init(PlayerControl playerControl)
         {
             base.Init(playerControl);
 
             InitCameraInput();
+
+            if(playerControl.virtualCamera)
+            tpsFollow = playerControl.virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         }
 
         public override void LateUpdate()
@@ -47,6 +54,7 @@ namespace BoxSouls
             {
                 var dir = playerLocomotion.moveDirToAttackTarget;
                 cameraLookTarget.forward = dir;
+                UpdateVirtualCameraSide(virtualCameraSide);
                 return;
             }
 
@@ -57,6 +65,17 @@ namespace BoxSouls
             rotateY %= 360;
 
             cameraLookTarget.rotation = Quaternion.Euler(rotateX, rotateY, 0);
+
+            UpdateVirtualCameraSide(0.5f);
+        }
+
+        void UpdateVirtualCameraSide(float sideValue)
+        {
+            if (!tpsFollow)
+                return;
+
+            tpsFollow.CameraSide = Mathf.Lerp(tpsFollow.CameraSide, sideValue, Time.time * 2);
+
         }
 
     }

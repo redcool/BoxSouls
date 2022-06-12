@@ -7,13 +7,13 @@ namespace BoxSouls
 {
     public class ApplyAnimatorRootMove : MonoBehaviour
     {
-        public PlayerUpdateControl playerControl;
+        public PlayerControl playerControl;
         public Animator anim;
 
         public Vector3 velocity;
         private void Start()
         {
-            playerControl = GetComponentInParent<PlayerUpdateControl>();
+            playerControl = GetComponentInParent<PlayerControl>();
 
             Assert.IsNotNull(playerControl);
 

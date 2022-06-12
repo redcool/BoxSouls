@@ -10,7 +10,7 @@ namespace BoxSouls
 {
     public abstract class BaseUpdater
     {
-        protected PlayerUpdateControl playerControl;
+        protected PlayerControl playerControl;
         public Transform transform => playerControl.transform;
         public InputControl inputControl => playerControl.inputControl;
         public Rigidbody rigid => playerControl.rigid;
@@ -19,7 +19,7 @@ namespace BoxSouls
         public PlayerAnim playerAnim => playerControl.playerAnim;
         public PlayerLocomotion playerLocomotion => playerControl.playerLocomotion;
 
-        public virtual void Init(PlayerUpdateControl playerControl) {
+        public virtual void Init(PlayerControl playerControl) {
             this.playerControl = playerControl;
         }
         public virtual void Update() { }

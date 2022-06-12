@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Cinemachine;
 
 namespace BoxSouls
 {
 
-    public class PlayerUpdateControl : MonoBehaviour
+    public class PlayerControl : MonoBehaviour
     {
         [Header("Components")]
         public InputControl inputControl;
         public Rigidbody rigid;
         public Transform camTr;
         public Animator anim;
+        public CinemachineVirtualCamera virtualCamera;
 
 
         [Header("Updater")]
