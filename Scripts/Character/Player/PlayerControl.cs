@@ -8,7 +8,7 @@ using Cinemachine;
 namespace BoxSouls
 {
 
-    public class PlayerControl : MonoBehaviour
+    public class PlayerControl : CharacterControl
     {
         [Header("Components")]
         public InputControl inputControl;
@@ -91,7 +91,10 @@ namespace BoxSouls
         public bool IsGrounded => playerLocomotion.IsGrounded;
         public bool IsJumpLaunch => anim.GetBool(Consts.AnimatorParameters.IS_JUMP_LUANCH);
 
-
+        public void OnAnimatorMoved(Vector3 velocity)
+        {
+            playerLocomotion.rootMotionVelocity = velocity;
+        }
 
     }
 }

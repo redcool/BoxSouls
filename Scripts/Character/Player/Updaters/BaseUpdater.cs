@@ -14,10 +14,10 @@ namespace BoxSouls
         public Transform transform => playerControl.transform;
         public InputControl inputControl => playerControl.inputControl;
         public Rigidbody rigid => playerControl.rigid;
-
         public Animator anim => playerControl.anim;
         public PlayerAnim playerAnim => playerControl.playerAnim;
         public PlayerLocomotion playerLocomotion => playerControl.playerLocomotion;
+        public PlayerWeaponControl playerWeaponControl => playerControl.playerWeaponControl;
 
         public virtual void Init(PlayerControl playerControl) {
             this.playerControl = playerControl;

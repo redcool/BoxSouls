@@ -13,7 +13,8 @@ namespace BoxSouls
     {
         public WeaponSocket leftSocket, rightSocket;
 
-        public WeaponItem defaultWeapon;
+        public WeaponItem defaultRightWeapon,defaultLeftWeapon;
+        public WeaponItem leftWeapon, rightWeapon;
 
         public override void Init(PlayerControl playerControl)
         {
@@ -28,7 +29,8 @@ namespace BoxSouls
                     leftSocket = sockets[i];
             }
 
-            Equip(defaultWeapon, false);
+            Equip(defaultLeftWeapon, true);
+            Equip(defaultRightWeapon, false);
         }
 
         public override void Update()
@@ -48,11 +50,17 @@ namespace BoxSouls
             w.transform.localPosition = Vector3.zero;
             w.transform.localScale = Vector3.one;
             w.transform.localRotation = Quaternion.identity;
+
+            if (isLeft)
+                leftWeapon = item;
+            else
+                rightWeapon = item;
         }
 
         public void Unequip(WeaponItem item, bool isLeft)
         {
-
+            leftWeapon = null;
+            rightWeapon = null;
         }
     }
 }

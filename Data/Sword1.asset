@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteName: 
   prefab: {fileID: 5101352493020611197, guid: 125759d141ab28741899c602d584da34, type: 3}
+  leftHandAnimName: LeftHandIdle
+  rightHandAnimName: RightHandIdle
+  twoHandsAnimName: TwoHandsIdle
