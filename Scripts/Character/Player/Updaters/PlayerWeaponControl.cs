@@ -55,6 +55,8 @@ namespace BoxSouls
                 leftWeapon = item;
             else
                 rightWeapon = item;
+
+            playerAnim.UpdateWeaponIdle(isLeft);
         }
 
         public void Unequip(WeaponItem item, bool isLeft)

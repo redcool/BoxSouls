@@ -106,5 +106,11 @@ namespace BoxSouls
             inputControl.RB = false;
         }
 
+        public void UpdateWeaponIdle(bool isLeft)
+        {
+            var idleName = isLeft ? Consts.AnimatorStateNames.LEFT_HAND_IDLE : Consts.AnimatorStateNames.RIGHT_HAND_IDLE;
+            anim.CrossFade(idleName, 0.2f);
+
+        }
     }
 }

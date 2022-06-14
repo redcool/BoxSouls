@@ -38,7 +38,9 @@ namespace BoxSouls
                 OH_ATTACK2 = "oh_attack_2",
                 OH_ATTACK3 = "oh_attack_3",
                 TH_ATTACK1 = "th_attack_1",
-                TH_ATTACK2 = "th_attack_2"
+                TH_ATTACK2 = "th_attack_2",
+                LEFT_HAND_IDLE="LeftHandIdle",
+                RIGHT_HAND_IDLE = "RightHandIdle"
                 ;
 
         }
