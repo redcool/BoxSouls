@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace BoxSouls
 {
-    public class EnemyControl : CharacterControl
+    public class DummyEnemyControl : CharacterControl
     {
         [Header("Refs")]
         public Animator anim;
@@ -16,6 +16,10 @@ namespace BoxSouls
             anim = GetComponentInChildren<Animator>();
         }
 
-
+        public override void OnDamage(CharacterStats attacker)
+        {
+            base.OnDamage(attacker);
+            anim.CrossFade(Consts.AnimatorStateNames.DAMAGE, 0.2f);
+        }
     }
 }

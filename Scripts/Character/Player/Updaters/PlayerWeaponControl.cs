@@ -45,11 +45,15 @@ namespace BoxSouls
             if (!item)
                 return;
 
-            var w = Object.Instantiate(item.prefab);
-            w.transform.parent = (isLeft ? leftSocket : rightSocket).transform;
-            w.transform.localPosition = Vector3.zero;
-            w.transform.localScale = Vector3.one;
-            w.transform.localRotation = Quaternion.identity;
+            var weaponInst = Object.Instantiate(item.prefab);
+
+            weaponInst.transform.parent = (isLeft ? leftSocket : rightSocket).transform;
+            weaponInst.transform.localPosition = Vector3.zero;
+            weaponInst.transform.localScale = Vector3.one;
+            weaponInst.transform.localRotation = Quaternion.identity;
+
+            item.weaponInfo = weaponInst.GetComponent<WeaponInfo>();
+            item.weaponInfo.Init(playerControl);
 
             if (isLeft)
                 leftWeapon = item;
@@ -63,6 +67,14 @@ namespace BoxSouls
         {
             leftWeapon = null;
             rightWeapon = null;
+        }
+
+        public void OpenDamageTrigger() {
+            rightWeapon.weaponInfo.OpenTrigger();
+        }
+        public void CloseDamageTrigger()
+        {
+            rightWeapon.weaponInfo.CloseTrigger();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BoxSouls
     {
         public CharacterStats characterStats = new CharacterStats();
 
-        public void OnDamage(CharacterStats attacker)
+        public virtual void OnDamage(CharacterStats attacker)
         {
             characterStats.hp -= AttackDefenceTools.GetDamage(attacker, characterStats);
 
@@ -23,6 +23,16 @@ namespace BoxSouls
         }
 
         public virtual void OnDie()
+        {
+
+        }
+
+        public virtual void OnOpenDamageTrigger()
+        {
+
+        }
+
+        public virtual void OnCloseDamageTrigger()
         {
 
         }

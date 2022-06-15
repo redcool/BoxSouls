@@ -10,8 +10,8 @@ namespace BoxSouls
     public class CharacterStats
     {
         [Header("Health")]
-        public int maxHp;
-        public int hp;
+        public int maxHp = 100;
+        public int hp =100;
 
         [Header("Attack Defence")]
         public int attack = 3;

@@ -96,5 +96,14 @@ namespace BoxSouls
             playerLocomotion.rootMotionVelocity = velocity;
         }
 
+        public override void OnOpenDamageTrigger()
+        {
+            playerWeaponControl.OpenDamageTrigger();
+        }
+
+        public override void OnCloseDamageTrigger()
+        {
+            playerWeaponControl.CloseDamageTrigger();
+        }
     }
 }
