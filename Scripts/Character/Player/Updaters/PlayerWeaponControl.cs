@@ -52,8 +52,8 @@ namespace BoxSouls
             weaponInst.transform.localScale = Vector3.one;
             weaponInst.transform.localRotation = Quaternion.identity;
 
-            item.weaponInfo = weaponInst.GetComponent<WeaponInfo>();
-            item.weaponInfo.Init(playerControl);
+            item.weaponDamageCollider = weaponInst.GetComponent<WeaponDamageCollider>();
+            item.weaponDamageCollider.Init(playerControl);
 
             if (isLeft)
                 leftWeapon = item;
@@ -70,11 +70,11 @@ namespace BoxSouls
         }
 
         public void OpenDamageTrigger() {
-            rightWeapon.weaponInfo.OpenTrigger();
+            rightWeapon.weaponDamageCollider.OpenTrigger();
         }
         public void CloseDamageTrigger()
         {
-            rightWeapon.weaponInfo.CloseTrigger();
+            rightWeapon.weaponDamageCollider.CloseTrigger();
         }
     }
 }

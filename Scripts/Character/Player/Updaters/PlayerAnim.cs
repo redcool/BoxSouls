@@ -96,14 +96,20 @@ namespace BoxSouls
 
         void UpdateAttack()
         {
-            var canAttack = inputControl.RB && !playerControl.IsInteracting;
+            var rightHandAttack = inputControl.RB && !playerControl.IsInteracting;
+            var leftAttack = inputControl.RT && !playerControl.IsInteracting;
 
-            if (canAttack)
+            var attackName = Consts.AnimatorStateNames.OH_ATTACK1;
+            if (leftAttack)
+                attackName += Consts.AnimatorStateNames.LEFT_ATTACK_SUFFIX;
+
+            if (rightHandAttack || leftAttack)
             {
-                PlayAnimAndSetInteracting(Consts.AnimatorStateNames.OH_ATTACK1, true);
-
+                PlayAnimAndSetInteracting(attackName, true);
             }
+
             inputControl.RB = false;
+            inputControl.RT = false;
         }
 
         public void UpdateWeaponIdle(bool isLeft)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BoxSouls
 {
-    public class WeaponInfo : MonoBehaviour
+    public class WeaponDamageCollider : MonoBehaviour
     {
         public Collider c;
         public CharacterControl owner;
@@ -33,7 +33,6 @@ namespace BoxSouls
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other);
             if (other.CompareTag(Consts.Tags.CanHit))
             {
                 var control = other.GetComponent<CharacterControl>();

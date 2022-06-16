@@ -17,7 +17,8 @@ namespace BoxSouls
                 IS_INTERACTING = "IsInteracting",
                 IS_ROLLING = "IsRolling",
                 IS_FALLING = "IsFalling",
-                IS_JUMP_LUANCH = "IsJumpLaunch"
+                IS_JUMP_LUANCH = "IsJumpLaunch",
+                IS_LEFT_ATTACK="IsLeftAttack"
 
         ;
 
@@ -41,6 +42,8 @@ namespace BoxSouls
                 TH_ATTACK2 = "th_attack_2",
                 LEFT_HAND_IDLE="LeftHandIdle",
                 RIGHT_HAND_IDLE = "RightHandIdle",
+
+                LEFT_ATTACK_SUFFIX = "_left",
 
 
                 DAMAGE="Damage"

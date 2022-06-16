@@ -8,7 +8,7 @@ namespace BoxSouls
     public class WeaponItem : Item
     {
         public GameObject prefab;
-        public WeaponInfo weaponInfo;
+        public WeaponDamageCollider weaponDamageCollider;
 
         [Header("Anim Name")]
         public string leftHandAnimName;
