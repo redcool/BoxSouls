@@ -18,10 +18,27 @@ namespace BoxSouls
                 IS_ROLLING = "IsRolling",
                 IS_FALLING = "IsFalling",
                 IS_JUMP_LUANCH = "IsJumpLaunch",
-                IS_LEFT_ATTACK="IsLeftAttack"
-
+                IS_LEFT_ATTACK="IsLeftAttack",
+                IS_TWO_HANDS = "IsTwoHands",
+                CAN_COMBO = "CanCombo",
+                ATTACK_INDEX = "AttackIndex"
         ;
 
+        }
+
+        public class AnimatorStateNameComposition
+        {
+            public const string 
+                LEFT_ATTACK_SUFFIX = "_left",
+                OH_ATTACK = "oh_attack_",
+                TH_ATTACK = "th_attack_"
+
+                ;
+            public static string GetAttackName(bool isTwoHands,bool isLeftAttack,int index)
+            {
+                var type = isTwoHands ? TH_ATTACK : OH_ATTACK;
+                return string.Format("{0}{1}{2}", type, index, isLeftAttack?LEFT_ATTACK_SUFFIX : "");
+            }
         }
 
         public class AnimatorStateNames
@@ -42,9 +59,6 @@ namespace BoxSouls
                 TH_ATTACK2 = "th_attack_2",
                 LEFT_HAND_IDLE="LeftHandIdle",
                 RIGHT_HAND_IDLE = "RightHandIdle",
-
-                LEFT_ATTACK_SUFFIX = "_left",
-
 
                 DAMAGE="Damage"
                 ;

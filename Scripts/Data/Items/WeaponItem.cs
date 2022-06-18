@@ -14,5 +14,7 @@ namespace BoxSouls
         public string leftHandAnimName;
         public string rightHandAnimName;
         public string twoHandsAnimName;
+
+        public int comboCount = 3;
     }
 }

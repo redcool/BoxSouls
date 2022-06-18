@@ -96,20 +96,49 @@ namespace BoxSouls
 
         void UpdateAttack()
         {
-            var rightHandAttack = inputControl.RB && !playerControl.IsInteracting;
-            var leftAttack = inputControl.RT && !playerControl.IsInteracting;
+            var rightHandAttack = inputControl.RB;
+            var leftAttack = inputControl.RT;
+            var isTwoHands = anim.GetBool(Consts.AnimatorParameters.IS_TWO_HANDS);
 
-            var attackName = Consts.AnimatorStateNames.OH_ATTACK1;
-            if (leftAttack)
-                attackName += Consts.AnimatorStateNames.LEFT_ATTACK_SUFFIX;
+            //var attackName = Consts.AnimatorStateNames.OH_ATTACK1;
+            //if (leftAttack)
+            //    attackName += Consts.AnimatorStateNameComposition.LEFT_ATTACK_SUFFIX;
 
-            if (rightHandAttack || leftAttack)
+            var canAttack = (leftAttack || rightHandAttack); // trigger 
+            canAttack = canAttack && !playerControl.IsInteracting;// condition
+
+            if (canAttack)
             {
+                var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftAttack, 1);
+
                 PlayAnimAndSetInteracting(attackName, true);
             }
 
+            UpdateComboAttack(leftAttack, rightHandAttack,isTwoHands);
+
             inputControl.RB = false;
             inputControl.RT = false;
+        }
+
+        void UpdateComboAttack(bool leftAttack,bool rightAttack,bool isTwoHands)
+        {
+            var attackIndex = anim.GetInteger(Consts.AnimatorParameters.ATTACK_INDEX);
+            var maxCombo = playerWeaponControl.GetMaxCombo(leftAttack, rightAttack);
+
+            if (playerControl.CanCombo && (leftAttack || rightAttack))
+            {
+                //if (attackIndex >= 1)
+                //    Debug.Log("combo 2");
+
+                attackIndex++;
+                attackIndex %= maxCombo;
+
+                anim.SetInteger(Consts.AnimatorParameters.ATTACK_INDEX, attackIndex);
+                anim.SetBool(Consts.AnimatorParameters.CAN_COMBO, false);
+
+                var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftAttack, attackIndex + 1);
+                PlayAnimAndSetInteracting(attackName, true);
+            }
         }
 
         public void UpdateWeaponIdle(bool isLeft)

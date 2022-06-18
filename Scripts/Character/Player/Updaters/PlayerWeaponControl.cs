@@ -69,6 +69,16 @@ namespace BoxSouls
             rightWeapon = null;
         }
 
+        public int GetMaxCombo(bool isLeftWeapon, bool isRightWeapon)
+        {
+            if (isRightWeapon && rightWeapon)
+                return rightWeapon.comboCount;
+
+            if (leftWeapon)
+                return leftWeapon.comboCount;
+            return 1;
+        }
+
         public void OpenDamageTrigger() {
             rightWeapon.weaponDamageCollider.OpenTrigger();
         }

@@ -90,6 +90,7 @@ namespace BoxSouls
         public bool IsFalling => anim.GetBool(Consts.AnimatorParameters.IS_FALLING);
         public bool IsGrounded => playerLocomotion.IsGrounded;
         public bool IsJumpLaunch => anim.GetBool(Consts.AnimatorParameters.IS_JUMP_LUANCH);
+        public bool CanCombo => anim.GetBool(Consts.AnimatorParameters.CAN_COMBO);
 
         public void OnAnimatorMoved(Vector3 velocity)
         {

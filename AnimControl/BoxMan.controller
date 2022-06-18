@@ -36,9 +36,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyValues:
   - stateName: IsInteracting
-    value: 0
-    isTrigger: 0
+    boolValue: 0
+    floatValue: 0
     when: 0
+    valueType: 0
   messageDir: 0
   enterFunctionNames: []
   updateFunctionNames: []
@@ -452,7 +453,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: TwoHanded
+    m_ConditionEvent: IsTwoHands
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8539960810616755646}
@@ -531,9 +532,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.37776363
-  m_TransitionOffset: 0.271499
-  m_ExitTime: 0.53223854
+  m_TransitionDuration: 0.37776387
+  m_TransitionOffset: 0
+  m_ExitTime: 0.8185599
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -575,7 +576,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: TwoHanded
+    m_ConditionEvent: IsTwoHands
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3278467324123479336}
@@ -771,7 +772,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: TwoHanded
+  - m_Name: IsTwoHands
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -791,6 +792,18 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: IsJumpLaunch
     m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: CanCombo
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: AttackIndex
+    m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -904,7 +917,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: TwoHanded
+    m_ConditionEvent: IsTwoHands
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5961237200159736559}
@@ -1038,7 +1051,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: TwoHanded
+    m_ConditionEvent: IsTwoHands
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1370948165640921534}
@@ -1279,9 +1292,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyValues:
   - stateName: IsJumpLaunch
-    value: 0
-    isTrigger: 0
+    boolValue: 0
+    floatValue: 0
     when: 0
+    valueType: 0
   messageDir: 0
   enterFunctionNames: []
   updateFunctionNames: []
@@ -1600,7 +1614,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: TwoHanded
+    m_ConditionEvent: IsTwoHands
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 205574110294700533}
@@ -1630,9 +1644,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyValues:
   - stateName: IsInteracting
-    value: 0
-    isTrigger: 0
+    boolValue: 0
+    floatValue: 0
     when: 0
+    valueType: 0
+  - stateName: CanCombo
+    boolValue: 0
+    floatValue: 0
+    when: 0
+    valueType: 0
+  - stateName: AttackIndex
+    boolValue: 0
+    floatValue: 0
+    when: 0
+    valueType: 1
   messageDir: 0
   enterFunctionNames: []
   updateFunctionNames: []
@@ -1698,7 +1723,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: TwoHanded
+    m_ConditionEvent: IsTwoHands
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 545146628711071243}
