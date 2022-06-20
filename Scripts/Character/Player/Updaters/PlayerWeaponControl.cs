@@ -69,14 +69,25 @@ namespace BoxSouls
             rightWeapon = null;
         }
 
-        public int GetMaxCombo(bool isLeftWeapon, bool isRightWeapon)
+        public int GetMaxCombo(bool isLeftAttack, bool isRightAttackOrTwoHands)
         {
-            if (isRightWeapon && rightWeapon)
+            if (isRightAttackOrTwoHands && rightWeapon)
                 return rightWeapon.comboCount;
 
             if (leftWeapon)
                 return leftWeapon.comboCount;
             return 1;
+        }
+
+        public int GetSprintAttackAnimId(bool isLeftAttack, bool isRightAttack)
+        {
+            if (isRightAttack && rightWeapon)
+                return rightWeapon.sprintAttackRightHandAnimId;
+
+            if (isLeftAttack && leftWeapon)
+                return leftWeapon.sprintAttackLeftHandAnimId;
+            
+            return rightWeapon.sprintAttackTwoHandsAnimId;
         }
 
         public void OpenDamageTrigger() {

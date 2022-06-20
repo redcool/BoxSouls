@@ -30,13 +30,13 @@ namespace BoxSouls
         {
             public const string 
                 LEFT_ATTACK_SUFFIX = "_left",
-                OH_ATTACK = "oh_attack_",
-                TH_ATTACK = "th_attack_"
+                OH_ATTACK_PREFIX = "oh_attack_",
+                TH_ATTACK_PREFIX = "th_attack_"
 
                 ;
             public static string GetAttackName(bool isTwoHands,bool isLeftAttack,int index)
             {
-                var type = isTwoHands ? TH_ATTACK : OH_ATTACK;
+                var type = isTwoHands ? TH_ATTACK_PREFIX : OH_ATTACK_PREFIX;
                 return string.Format("{0}{1}{2}", type, index, isLeftAttack?LEFT_ATTACK_SUFFIX : "");
             }
         }
