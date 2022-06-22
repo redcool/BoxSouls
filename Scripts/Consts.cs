@@ -74,7 +74,10 @@ namespace BoxSouls
 
         public class Tags
         {
-            public const string CanHit = nameof(CanHit)
+            public const string
+                CanHit = nameof(CanHit),
+                Player = nameof(Player),
+                Enemy = nameof(Enemy)
                 
                 ;
         }

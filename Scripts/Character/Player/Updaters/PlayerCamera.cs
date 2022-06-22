@@ -50,7 +50,7 @@ namespace BoxSouls
 
         void UpdateCameraLookTarget(Vector2 lookInputDir, float deltaTime)
         {
-            if (playerControl.IsLockTarget)
+            if (playerControl.IsLockedTarget)
             {
                 var dir = playerLocomotion.moveDirToAttackTarget;
                 cameraLookTarget.forward = dir;

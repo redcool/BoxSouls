@@ -44,7 +44,7 @@ namespace BoxSouls
 
             var speedX = inputControl.movement.x;
             var speedZ = inputControl.movement.y;
-            if (!playerControl.IsLockTarget)
+            if (!playerControl.IsLockedTarget)
             {
                 speedX = 0;
                 speedZ = playerLocomotion.moveAmount;

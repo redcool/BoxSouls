@@ -23,6 +23,10 @@ namespace BoxSouls
         public float moveAmount;
         public Vector3 rootMotionVelocity;
 
+        [Header("Lock Target")]
+        public float maxLockDistance = 20;
+        public LayerMask lockLayer = 1;
+        public string canLockTag = Consts.Tags.CanHit;
 
         public bool IsGrounded => rigidCharacter.isGrounded;
 
@@ -38,8 +42,9 @@ namespace BoxSouls
             moveDir = CameraTools.CalcMoveDirection(playerControl.camTr, movementInput);
             UpdateMoveAmount(movementInput);
 
+            UpdateTryLock();
 
-            if (playerControl.IsLockTarget)
+            if (playerControl.IsLockedTarget)
                 moveDirToAttackTarget = (playerControl.attackTarget.position - transform.position - Vector3.up*2);
         }
 
@@ -57,6 +62,18 @@ namespace BoxSouls
             UpdateMove(moveDir);
             UpdateRotate(moveDir, deltaTime);
             UpdateJump(moveDir, deltaTime);
+        }
+
+        void UpdateTryLock()
+        {
+            if (inputControl.tryLock)
+            {
+                inputControl.tryLock = false;
+
+                playerControl.attackTarget = CameraTools.RaycastTarget(playerControl.camTr, maxLockDistance, lockLayer,
+                    (c) => !c.CompareTag(Consts.Tags.Player) && c.GetComponentInChildren<CharacterControl>()
+                    );
+            }
         }
 
         private void UpdateJump(Vector3 moveDir, float fixedDeltaTime)
@@ -92,7 +109,7 @@ namespace BoxSouls
 
         void UpdateRotate(Vector3 moveDir, float deltaTime)
         {
-            if (playerControl.IsLockTarget)
+            if (playerControl.IsLockedTarget)
             {
                 moveDir = moveDirToAttackTarget;
             }

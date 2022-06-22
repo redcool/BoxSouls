@@ -85,7 +85,7 @@ namespace BoxSouls
             }
         }
 
-        public bool IsLockTarget => attackTarget;
+        public bool IsLockedTarget => attackTarget;
         public bool IsInteracting => anim.GetBool(Consts.AnimatorParameters.IS_INTERACTING);
         public bool IsFalling => anim.GetBool(Consts.AnimatorParameters.IS_FALLING);
         public bool IsGrounded => playerLocomotion.IsGrounded;
