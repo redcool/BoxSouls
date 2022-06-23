@@ -113,6 +113,7 @@ namespace BoxSouls
             {
                 var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftAttack, firstAttackIndex);
                 PlayAnimAndSetInteracting(attackName, true);
+                playerStatesControl.ConsumeEnergy(25);
             }
 
             UpdateComboAttack(leftAttack, rightHandAttack,isTwoHands);
@@ -139,6 +140,7 @@ namespace BoxSouls
 
                 var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftAttack, attackIndex + 1);
                 PlayAnimAndSetInteracting(attackName, true);
+                playerStatesControl.ConsumeEnergy(25);
             }
         }
 

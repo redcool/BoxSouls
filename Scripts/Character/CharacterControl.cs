@@ -9,6 +9,7 @@ namespace BoxSouls
 {
     public class CharacterControl : MonoBehaviour
     {
+        [Header("Character Info")]
         public CharacterStats characterStats = new CharacterStats();
 
         public virtual void OnDamage(CharacterStats attacker)

@@ -18,6 +18,8 @@ namespace BoxSouls
         public PlayerAnim playerAnim => playerControl.playerAnim;
         public PlayerLocomotion playerLocomotion => playerControl.playerLocomotion;
         public PlayerWeaponControl playerWeaponControl => playerControl.playerWeaponControl;
+        public PlayerUIControl playerUIControl => playerControl.playerUIControl;
+        public PlayerStatesControl playerStatesControl => playerControl.playerStatesControl;
 
         public virtual void Init(PlayerControl playerControl) {
             this.playerControl = playerControl;

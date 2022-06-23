@@ -59,6 +59,7 @@ namespace BoxSouls
                 TH_ATTACK2 = "th_attack_2",
                 LEFT_HAND_IDLE="LeftHandIdle",
                 RIGHT_HAND_IDLE = "RightHandIdle",
+                Locomotion = nameof(Locomotion),
 
                 DAMAGE="Damage"
                 ;

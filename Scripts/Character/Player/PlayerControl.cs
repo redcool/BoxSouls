@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Cinemachine;
+using System;
 
 namespace BoxSouls
 {
@@ -17,12 +18,13 @@ namespace BoxSouls
         public Animator anim;
         public CinemachineVirtualCamera virtualCamera;
 
-
         [Header("Updater")]
         public PlayerLocomotion playerLocomotion = new PlayerLocomotion();
         public PlayerCamera playerCamera = new PlayerCamera();
         public PlayerAnim playerAnim = new PlayerAnim();
         public PlayerWeaponControl playerWeaponControl = new PlayerWeaponControl();
+        public PlayerUIControl playerUIControl = new PlayerUIControl();
+        public PlayerStatesControl playerStatesControl = new PlayerStatesControl();
 
         [Header("Attack Target")]
         public Transform attackTarget;
@@ -54,10 +56,23 @@ namespace BoxSouls
             playerCamera.Init(this);
             playerAnim.Init(this);
             playerWeaponControl.Init(this);
+            playerUIControl.Init(this);
+            playerStatesControl.Init(this);
 
-            updateList.AddRange(new BaseUpdater[] { playerLocomotion, playerAnim });
-            fixedUpdateList.AddRange(new BaseUpdater[] { playerLocomotion });
-            lateUpdateList.AddRange(new BaseUpdater[] { playerCamera });
+            updateList.AddRange(new BaseUpdater[] { 
+                playerLocomotion,
+                playerAnim,
+                playerUIControl ,
+                playerStatesControl
+            });
+
+            fixedUpdateList.AddRange(new BaseUpdater[] { 
+                playerLocomotion
+            });
+
+            lateUpdateList.AddRange(new BaseUpdater[] { 
+                playerCamera
+            });
         }
 
         // Update is called once per frame
@@ -106,5 +121,6 @@ namespace BoxSouls
         {
             playerWeaponControl.CloseDamageTrigger();
         }
+
     }
 }
