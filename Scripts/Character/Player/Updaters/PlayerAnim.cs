@@ -23,6 +23,7 @@ namespace BoxSouls
             UpdateRollingSprint();
             UpdateFallingAndLand();
             UpdateAttack();
+            UpdateTwoHandsHold();
         }
 
         public void PlayAnimAndSetInteracting(string stateName,bool isInteracting)
@@ -96,30 +97,32 @@ namespace BoxSouls
 
         void UpdateAttack()
         {
-            var rightHandAttack = inputControl.RB;
-            var leftAttack = inputControl.RT;
+            var rightHandAttack = inputControl.IsRightHandAttack();
+            var leftHandAttack = inputControl.IsLeftHandAttack();
             var isTwoHands = anim.GetBool(Consts.AnimatorParameters.IS_TWO_HANDS);
 
             //var attackName = Consts.AnimatorStateNames.OH_ATTACK1;
             //if (leftAttack)
             //    attackName += Consts.AnimatorStateNameComposition.LEFT_ATTACK_SUFFIX;
 
-            var canAttack = (leftAttack || rightHandAttack); // trigger 
+            var canAttack = (leftHandAttack || rightHandAttack); // trigger 
             canAttack = canAttack && !playerControl.IsInteracting;// condition
 
-            var firstAttackIndex = inputControl.isSprint ? playerWeaponControl.GetSprintAttackAnimId(leftAttack,rightHandAttack) : 1; // sprint use 3
+            var firstAttackIndex = inputControl.isSprint ? playerWeaponControl.GetSprintAttackAnimId(leftHandAttack, rightHandAttack) : 1; // sprint use 3
 
             if (canAttack)
             {
-                var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftAttack, firstAttackIndex);
+                var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftHandAttack, firstAttackIndex);
                 PlayAnimAndSetInteracting(attackName, true);
                 playerStatesControl.ConsumeEnergy(25);
             }
 
-            UpdateComboAttack(leftAttack, rightHandAttack,isTwoHands);
+            UpdateComboAttack(leftHandAttack, rightHandAttack, isTwoHands);
 
-            inputControl.RB = false;
-            inputControl.RT = false;
+            if (leftHandAttack)
+                inputControl.ResetLeftHandAttack();
+            if (rightHandAttack)
+                inputControl.ResetRightHandAttack();
         }
 
         void UpdateComboAttack(bool leftAttack,bool rightAttack,bool isTwoHands)
@@ -149,6 +152,18 @@ namespace BoxSouls
             var idleName = isLeft ? Consts.AnimatorStateNames.LEFT_HAND_IDLE : Consts.AnimatorStateNames.RIGHT_HAND_IDLE;
             anim.CrossFade(idleName, 0.2f);
 
+        }
+
+        public void UpdateTwoHandsHold()
+        {
+            //1 take back single weapon
+            //2 two hands holding weapon
+            if (inputControl.IsHoldRightWeapon())
+            {
+                var lastValue = anim.GetBool(Consts.AnimatorParameters.IS_TWO_HANDS);
+                anim.SetBool(Consts.AnimatorParameters.IS_TWO_HANDS,!lastValue);
+                inputControl.ResetRightHandAttack();
+            }
         }
     }
 }
