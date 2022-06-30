@@ -113,6 +113,7 @@ namespace BoxSouls
             if (canAttack)
             {
                 var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftHandAttack, firstAttackIndex);
+                Debug.Log(attackName);
                 PlayAnimAndSetInteracting(attackName, true);
                 playerStatesControl.ConsumeEnergy(25);
             }

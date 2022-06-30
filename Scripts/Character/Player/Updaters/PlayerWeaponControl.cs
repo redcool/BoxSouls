@@ -16,6 +16,10 @@ namespace BoxSouls
         public WeaponItem defaultRightWeapon,defaultLeftWeapon;
         public WeaponItem leftWeapon, rightWeapon;
 
+        [Header("Put back weapon position")]
+        public Transform leftWeaponPosition;
+        public Transform rightWeaponPosition;
+
         public override void Init(PlayerControl playerControl)
         {
             base.Init(playerControl);
@@ -51,6 +55,8 @@ namespace BoxSouls
             weaponInst.transform.localPosition = Vector3.zero;
             weaponInst.transform.localScale = Vector3.one;
             weaponInst.transform.localRotation = Quaternion.identity;
+
+            item.instTr = weaponInst.transform;
 
             item.weaponDamageCollider = weaponInst.GetComponent<WeaponDamageCollider>();
             item.weaponDamageCollider.Init(playerControl);
@@ -96,6 +102,14 @@ namespace BoxSouls
         public void CloseDamageTrigger()
         {
             rightWeapon.weaponDamageCollider.CloseTrigger();
+        }
+
+        public void PutBackWeapon(bool isLeftHand)
+        {
+            if (isLeftHand && leftWeapon)
+            {
+                leftWeapon.instTr.SetParent(leftWeaponPosition);
+            }
         }
     }
 }

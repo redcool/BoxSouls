@@ -8,6 +8,7 @@ namespace BoxSouls
     public class WeaponItem : Item
     {
         public GameObject prefab;
+        public Transform instTr;
         public WeaponDamageCollider weaponDamageCollider;
 
         [Header("Anim Name")]

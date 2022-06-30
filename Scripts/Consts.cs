@@ -36,7 +36,11 @@ namespace BoxSouls
                 ;
             public static string GetAttackName(bool isTwoHands,bool isLeftAttack,int index)
             {
+                if (isTwoHands)
+                    isLeftAttack = false;
+
                 var type = isTwoHands ? TH_ATTACK_PREFIX : OH_ATTACK_PREFIX;
+                
                 return string.Format("{0}{1}{2}", type, index, isLeftAttack?LEFT_ATTACK_SUFFIX : "");
             }
         }

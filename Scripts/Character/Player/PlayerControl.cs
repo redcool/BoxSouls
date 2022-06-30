@@ -122,5 +122,9 @@ namespace BoxSouls
             playerWeaponControl.CloseDamageTrigger();
         }
 
+        public void OnPutBackWeapon(bool isLeftHand)
+        {
+            playerWeaponControl.PutBackWeapon(isLeftHand);
+        }
     }
 }
