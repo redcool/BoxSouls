@@ -110,6 +110,11 @@ namespace BoxSouls
             {
                 leftWeapon.instTr.SetParent(leftWeaponPosition);
             }
+            else
+            {
+                if(rightWeapon) 
+                    rightWeapon.instTr.SetParent(rightWeaponPosition,false);
+            }
         }
     }
 }
