@@ -161,9 +161,14 @@ namespace BoxSouls
             //2 two hands holding weapon
             if (inputControl.IsHoldRightWeapon())
             {
-                var lastValue = anim.GetBool(Consts.AnimatorParameters.IS_TWO_HANDS);
-                anim.SetBool(Consts.AnimatorParameters.IS_TWO_HANDS,!lastValue);
+                var isTwoHandsHoldCurrent = anim.GetBool(Consts.AnimatorParameters.IS_TWO_HANDS);
+                anim.SetBool(Consts.AnimatorParameters.IS_TWO_HANDS,!isTwoHandsHoldCurrent);
                 inputControl.ResetRightHandAttack();
+
+                if (isTwoHandsHoldCurrent)
+                {
+                    playerWeaponControl.EquipWeapon(false);
+                }
             }
         }
     }

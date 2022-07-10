@@ -33,8 +33,8 @@ namespace BoxSouls
                     leftSocket = sockets[i];
             }
 
-            Equip(defaultLeftWeapon, true);
-            Equip(defaultRightWeapon, false);
+            InitWeaponEquip(defaultLeftWeapon, true);
+            InitWeaponEquip(defaultRightWeapon, false);
         }
 
         public override void Update()
@@ -44,7 +44,7 @@ namespace BoxSouls
 
         }
 
-        public void Equip(WeaponItem item,bool isLeft)
+        public void InitWeaponEquip(WeaponItem item,bool isLeft)
         {
             if (!item)
                 return;
@@ -106,14 +106,28 @@ namespace BoxSouls
 
         public void PutBackWeapon(bool isLeftHand)
         {
-            if (isLeftHand && leftWeapon)
+            if (isLeftHand)
             {
-                leftWeapon.instTr.SetParent(leftWeaponPosition);
+                if(leftWeapon)
+                    leftWeapon.instTr.SetParent(leftWeaponPosition,false);
             }
             else
             {
                 if(rightWeapon) 
                     rightWeapon.instTr.SetParent(rightWeaponPosition,false);
+            }
+        }
+        public void EquipWeapon(bool isLeftHand)
+        {
+            if (isLeftHand)
+            {
+                if (leftWeapon)
+                    leftWeapon.instTr.SetParent(leftSocket.transform, false);
+            }
+            else
+            {
+                if (rightWeapon)
+                    rightWeapon.instTr.SetParent(rightSocket.transform, false);
             }
         }
     }
