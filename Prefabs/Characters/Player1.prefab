@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {x: 0, y: 0}
   look: {x: 0, y: 0}
+  topdownLook: {x: 0, y: 0}
   isSprint: 0
   isRolling: 0
   isJump: 0
@@ -314,14 +315,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613081160405226996}
-  m_LocalRotation: {x: -0.15304591, y: 0.15304591, z: -0.6903456, w: 0.6903456}
+  m_LocalRotation: {x: -0.22742058, y: 0.22742058, z: -0.66953707, w: 0.66953707}
   m_LocalPosition: {x: 0.01, y: 0.026, z: -0.0028}
   m_LocalScale: {x: 0.39370093, y: 0.39370093, z: 0.39370093}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7043811032436327812}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 25, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 37.522, z: -90}
 --- !u!114 &613081160405226998
 MonoBehaviour:
   m_ObjectHideFlags: 0
