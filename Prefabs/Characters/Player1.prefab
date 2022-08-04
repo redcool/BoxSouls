@@ -1350,13 +1350,13 @@ MonoBehaviour:
   onPutBackWeapon:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 613081159937111607}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 613081159937111598}
+        m_TargetAssemblyTypeName: BoxSouls.PlayerControl, BoxSouls2
+        m_MethodName: OnPutBackWeapon
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
