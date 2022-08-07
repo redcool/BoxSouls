@@ -4,12 +4,10 @@ using UnityEngine;
 
 namespace BoxSouls
 {
-    [CreateAssetMenu(menuName = "BoxSouls/Item/Weapon", order = -100)]
+    [CreateAssetMenu(menuName = "BoxSouls/Item/Weapon")]
     public class WeaponItem : Item
     {
         public GameObject prefab;
-        public Transform instTr;
-        public WeaponDamageCollider weaponDamageCollider;
 
         [Header("Anim Name")]
         public string leftHandAnimPrefix = Consts.AnimatorStateNameComposition.OH_ATTACK_PREFIX;

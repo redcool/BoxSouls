@@ -9,16 +9,37 @@ using Object = UnityEngine.Object;
 namespace BoxSouls
 {
     [Serializable]
+    public class PlayerWeaponInfo
+    {
+        public WeaponItem weaponItem;
+        public Transform weaponInst;
+        public bool isLeftEquiped;
+        public WeaponDamageCollider weaponDamageCollider;
+    }
+
+    [Serializable]
     public class PlayerWeaponControl : BaseUpdater
     {
-        public WeaponSocket leftSocket, rightSocket;
 
-        public WeaponItem defaultRightWeapon,defaultLeftWeapon;
-        public WeaponItem leftWeapon, rightWeapon;
+        [Header("* Default weaponItem")]
+        public WeaponItem defaultRightWeapon;
+        public WeaponItem defaultLeftWeapon;
 
-        [Header("Put back weapon position")]
-        public Transform leftWeaponPosition;
-        public Transform rightWeaponPosition;
+
+        [Header("* Put back weapon position")]
+        public Transform leftWeaponBackTr;
+        public Transform rightWeaponBackTr;
+
+        [Header("hands weapon socket")]
+        public WeaponSocket leftSocket;
+        public WeaponSocket rightSocket;
+
+        [Header("weapon info current equiped")]
+        public PlayerWeaponInfo leftHandWeaponInfo;
+        public PlayerWeaponInfo rightHandWeaponInfo;
+
+        public WeaponItem LeftWeaponItem => leftHandWeaponInfo.weaponItem;
+        public WeaponItem RightWeaponItem => rightHandWeaponInfo.weaponItem;
 
         public override void Init(PlayerControl playerControl)
         {
@@ -33,6 +54,9 @@ namespace BoxSouls
                     leftSocket = sockets[i];
             }
 
+            leftHandWeaponInfo = new PlayerWeaponInfo();
+            rightHandWeaponInfo = new PlayerWeaponInfo();
+
             InitWeaponEquip(defaultLeftWeapon, true);
             InitWeaponEquip(defaultRightWeapon, false);
         }
@@ -40,8 +64,6 @@ namespace BoxSouls
         public override void Update()
         {
             base.Update();
-
-
         }
 
         public void InitWeaponEquip(WeaponItem item,bool isLeft)
@@ -56,79 +78,77 @@ namespace BoxSouls
             weaponInst.transform.localScale = Vector3.one;
             weaponInst.transform.localRotation = Quaternion.identity;
 
-            item.instTr = weaponInst.transform;
-
-            item.weaponDamageCollider = weaponInst.GetComponent<WeaponDamageCollider>();
-            item.weaponDamageCollider.Init(playerControl);
-
-            if (isLeft)
-                leftWeapon = item;
-            else
-                rightWeapon = item;
+            UpdateWeaponInfo(item, weaponInst.transform, isLeft);
 
             playerAnim.UpdateWeaponIdle(isLeft);
         }
 
-        public void Unequip(WeaponItem item, bool isLeft)
+        void UpdateWeaponInfo(WeaponItem weaponItem,Transform weaponInst,bool isLeft)
         {
-            leftWeapon = null;
-            rightWeapon = null;
+            var info = isLeft ? leftHandWeaponInfo : rightHandWeaponInfo;
+            info.weaponInst = weaponInst;
+            info.weaponItem = weaponItem;
+            info.isLeftEquiped = isLeft;
+
+            info.weaponDamageCollider = weaponInst.GetComponent<WeaponDamageCollider>();
+            info.weaponDamageCollider.Init(playerControl);
         }
 
-        public int GetMaxCombo(bool isLeftAttack, bool isRightAttackOrTwoHands)
+        public void Unequip(bool isLeft)
         {
-            if (isRightAttackOrTwoHands && rightWeapon)
-                return rightWeapon.comboCount;
+            
+        }
 
-            if (leftWeapon)
-                return leftWeapon.comboCount;
+        /// <summary>
+        /// 获取weaponItem的连击数
+        /// </summary>
+        /// <param name="isLeft"></param>
+        /// <param name="isTwoHands">two hands need find leftWeaponItem or rightWeaponItem </param>
+        /// <returns></returns>
+        public int GetMaxCombo(bool isLeft,bool isTwoHands)
+        {
+            if (isTwoHands && rightHandWeaponInfo.weaponItem)
+                return rightHandWeaponInfo.weaponItem.comboCount;
+
+            if (leftHandWeaponInfo.weaponItem)
+                return leftHandWeaponInfo.weaponItem.comboCount;
             return 1;
         }
 
         public int GetSprintAttackAnimId(bool isLeftAttack, bool isRightAttack)
         {
-            if (isRightAttack && rightWeapon)
-                return rightWeapon.sprintAttackRightHandAnimId;
+            if (isRightAttack && RightWeaponItem)
+                return RightWeaponItem.sprintAttackRightHandAnimId;
 
-            if (isLeftAttack && leftWeapon)
-                return leftWeapon.sprintAttackLeftHandAnimId;
+            if (isLeftAttack && LeftWeaponItem)
+                return LeftWeaponItem.sprintAttackLeftHandAnimId;
             
-            return rightWeapon.sprintAttackTwoHandsAnimId;
+            return RightWeaponItem.sprintAttackTwoHandsAnimId;
         }
 
-        public void OpenDamageTrigger() {
-            rightWeapon.weaponDamageCollider.OpenTrigger();
+        public void OpenDamageTrigger(bool isLeftWeapon) {
+            var weaponInfo = isLeftWeapon ? leftHandWeaponInfo : rightHandWeaponInfo;
+            weaponInfo.weaponDamageCollider.OpenTrigger();
         }
-        public void CloseDamageTrigger()
+        public void CloseDamageTrigger(bool isLeftWeapon)
         {
-            rightWeapon.weaponDamageCollider.CloseTrigger();
+            var weaponInfo = isLeftWeapon ? leftHandWeaponInfo : rightHandWeaponInfo;
+            weaponInfo.weaponDamageCollider.CloseTrigger();
         }
 
         public void PutBackWeapon(bool isLeftHand)
         {
-            if (isLeftHand)
-            {
-                if(leftWeapon)
-                    leftWeapon.instTr.SetParent(leftWeaponPosition,false);
-            }
-            else
-            {
-                if(rightWeapon) 
-                    rightWeapon.instTr.SetParent(rightWeaponPosition,false);
-            }
+            var info = isLeftHand ? leftHandWeaponInfo : rightHandWeaponInfo;
+            var targetParent = isLeftHand ? leftWeaponBackTr: rightWeaponBackTr;
+            info.weaponInst.SetParent(targetParent,false);
         }
+
         public void EquipWeapon(bool isLeftHand)
         {
-            if (isLeftHand)
-            {
-                if (leftWeapon)
-                    leftWeapon.instTr.SetParent(leftSocket.transform, false);
-            }
-            else
-            {
-                if (rightWeapon)
-                    rightWeapon.instTr.SetParent(rightSocket.transform, false);
-            }
+            var info = isLeftHand ? leftHandWeaponInfo : rightHandWeaponInfo;
+            var targetParent = isLeftHand ? leftSocket.transform : rightSocket.transform;
+            info.weaponInst.SetParent(targetParent, false);
+
         }
     }
 }

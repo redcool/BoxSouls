@@ -99,7 +99,8 @@ namespace BoxSouls
         {
             var rightHandAttack = inputControl.IsRightHandAttack();
             var leftHandAttack = inputControl.IsLeftHandAttack();
-            var isTwoHands = anim.GetBool(Consts.AnimatorParameters.IS_TWO_HANDS);
+            var isTwoHands = playerControl.IsTwoHandsHolding;
+
 
             //var attackName = Consts.AnimatorStateNames.OH_ATTACK1;
             //if (leftAttack)
@@ -112,6 +113,9 @@ namespace BoxSouls
 
             if (canAttack)
             {
+                
+                playerControl.isLeftAttacking = leftHandAttack;
+
                 var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftHandAttack, firstAttackIndex);
                 Debug.Log(attackName);
                 PlayAnimAndSetInteracting(attackName, true);
@@ -129,7 +133,7 @@ namespace BoxSouls
         void UpdateComboAttack(bool leftAttack,bool rightAttack,bool isTwoHands)
         {
             var attackIndex = anim.GetInteger(Consts.AnimatorParameters.ATTACK_INDEX);
-            var maxCombo = playerWeaponControl.GetMaxCombo(leftAttack, rightAttack);
+            var maxCombo = playerWeaponControl.GetMaxCombo(leftAttack, isTwoHands);
 
             if (playerControl.CanCombo && (leftAttack || rightAttack))
             {

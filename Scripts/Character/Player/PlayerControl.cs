@@ -106,6 +106,8 @@ namespace BoxSouls
         public bool IsGrounded => playerLocomotion.IsGrounded;
         public bool IsJumpLaunch => anim.GetBool(Consts.AnimatorParameters.IS_JUMP_LUANCH);
         public bool CanCombo => anim.GetBool(Consts.AnimatorParameters.CAN_COMBO);
+        public bool IsTwoHandsHolding => anim.GetBool(Consts.AnimatorParameters.IS_TWO_HANDS);
+        public bool isLeftAttacking;
 
         public void OnAnimatorMoved(Vector3 velocity)
         {
@@ -114,12 +116,12 @@ namespace BoxSouls
 
         public override void OnOpenDamageTrigger()
         {
-            playerWeaponControl.OpenDamageTrigger();
+            playerWeaponControl.OpenDamageTrigger(isLeftAttacking);
         }
 
         public override void OnCloseDamageTrigger()
         {
-            playerWeaponControl.CloseDamageTrigger();
+            playerWeaponControl.CloseDamageTrigger(isLeftAttacking);
         }
 
         public void OnPutBackWeapon(bool isLeftHand)
