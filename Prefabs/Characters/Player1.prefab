@@ -276,21 +276,30 @@ MonoBehaviour:
     cameraSensitive: 10
     virtualCameraSide: 0.5
   playerWeaponControl:
-    leftSocket: {fileID: 0}
-    rightSocket: {fileID: 0}
     defaultRightWeapon: {fileID: 11400000, guid: 1d42000e2f7d5af4db3ccdd0a759457c,
       type: 2}
     defaultLeftWeapon: {fileID: 11400000, guid: 1d42000e2f7d5af4db3ccdd0a759457c,
       type: 2}
-    leftWeapon: {fileID: 0}
-    rightWeapon: {fileID: 0}
-    leftWeaponPosition: {fileID: 1419826568}
-    rightWeaponPosition: {fileID: 623500601}
+    leftWeaponBackTr: {fileID: 1419826568}
+    rightWeaponBackTr: {fileID: 623500601}
+    leftSocket: {fileID: 0}
+    rightSocket: {fileID: 0}
+    leftHandWeaponInfo:
+      weaponItem: {fileID: 0}
+      weaponInst: {fileID: 0}
+      isLeftEquiped: 0
+      weaponDamageCollider: {fileID: 0}
+    rightHandWeaponInfo:
+      weaponItem: {fileID: 0}
+      weaponInst: {fileID: 0}
+      isLeftEquiped: 0
+      weaponDamageCollider: {fileID: 0}
   playerUIControl:
     hpBarSlider: {fileID: 0}
     energyBarSlider: {fileID: 0}
   attackTarget: {fileID: 0}
   cameraLookTarget: {fileID: 613081159869301704}
+  isLeftAttacking: 0
 --- !u!1 &613081160405226996
 GameObject:
   m_ObjectHideFlags: 0
