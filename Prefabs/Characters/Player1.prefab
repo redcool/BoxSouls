@@ -300,6 +300,7 @@ MonoBehaviour:
   attackTarget: {fileID: 0}
   cameraLookTarget: {fileID: 613081159869301704}
   isLeftAttacking: 0
+  isLeftHandPutBack: 0
 --- !u!1 &613081160405226996
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,14 +370,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613081160828757247}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalRotation: {x: 0.5889369, y: -0.5889369, z: -0.39134803, w: 0.39134803}
   m_LocalPosition: {x: 0.0094, y: 0.0313, z: -0.0111}
   m_LocalScale: {x: 0.39370072, y: 0.39370072, z: 0.3937008}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5000965686724715579}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: -112.792, z: -90}
 --- !u!114 &613081160828757233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,6 +1328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b577bcd052ce18f44b51ec306c6069e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AutoFindPlayerControl: 0
   onOpenDamageTrigger:
     m_PersistentCalls:
       m_Calls:
@@ -1363,7 +1365,7 @@ MonoBehaviour:
       - m_Target: {fileID: 613081159937111598}
         m_TargetAssemblyTypeName: BoxSouls.PlayerControl, BoxSouls2
         m_MethodName: OnPutBackWeapon
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

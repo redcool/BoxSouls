@@ -23,17 +23,17 @@ namespace BoxSouls
             UpdateRollingSprint();
             UpdateFallingAndLand();
             UpdateAttack();
-            UpdateTwoHandsHold();
+            UpdateTwoHandsHolding();
         }
 
         public void PlayAnimAndSetInteracting(string stateName,bool isInteracting)
         {
-            anim.PlayAnimSetBool(stateName, Consts.AnimatorParameters.IS_INTERACTING, isInteracting);
+            anim.PlayAnimSetBool(stateName, Consts.AnimatorParameters.IsInteracting, isInteracting);
         }
 
         public void JumpLaunch()
         {
-            anim.SetBool(Consts.AnimatorParameters.IS_JUMP_LUANCH, true);
+            anim.SetBool(Consts.AnimatorParameters.IsJumpLaunch, true);
             //PlayAnimAndSetInteracting(Consts.AnimatorStateNames.JUMP_LAUNCH, true);
             anim.CrossFade(Consts.AnimatorStateNames.JUMP_LAUNCH, 0.2f);
         }
@@ -51,8 +51,8 @@ namespace BoxSouls
                 speedZ = playerLocomotion.moveAmount;
             }
 
-            anim.SetFloat(Consts.AnimatorParameters.SPEED_X, speedX, 0.2f, Time.deltaTime);
-            anim.SetFloat(Consts.AnimatorParameters.SPEED_Z, speedZ, 0.2f, Time.deltaTime);
+            anim.SetFloat(Consts.AnimatorParameters.SpeedX, speedX, 0.2f, Time.deltaTime);
+            anim.SetFloat(Consts.AnimatorParameters.SpeedZ, speedZ, 0.2f, Time.deltaTime);
         }
 
         void UpdateRollingSprint()
@@ -63,7 +63,7 @@ namespace BoxSouls
                 var moveDir = playerLocomotion.moveDir;
                 moveDir.y = 0;
 
-                anim.SetBool(Consts.AnimatorParameters.IS_INTERACTING, true);
+                anim.SetBool(Consts.AnimatorParameters.IsInteracting, true);
 
                 if (moveDir.sqrMagnitude == 0)
                     anim.CrossFade(Consts.AnimatorStateNames.STEP_BACK, 0.1f);
@@ -82,7 +82,7 @@ namespace BoxSouls
             // land trigger
             if (isGrounded && isFalling)
             {
-                anim.SetBool(Consts.AnimatorParameters.IS_FALLING, false);
+                anim.SetBool(Consts.AnimatorParameters.IsFalling, false);
                 PlayAnimAndSetInteracting(Consts.AnimatorStateNames.LAND, true);
             }
 
@@ -90,7 +90,7 @@ namespace BoxSouls
             if (!isGrounded && !isFalling && !isJumpLaunch)
             {
 
-                anim.SetBool(Consts.AnimatorParameters.IS_FALLING, true);
+                anim.SetBool(Consts.AnimatorParameters.IsFalling, true);
                 PlayAnimAndSetInteracting(Consts.AnimatorStateNames.FALLING, false);
             }
         }
@@ -132,7 +132,7 @@ namespace BoxSouls
 
         void UpdateComboAttack(bool leftAttack,bool rightAttack,bool isTwoHands)
         {
-            var attackIndex = anim.GetInteger(Consts.AnimatorParameters.ATTACK_INDEX);
+            var attackIndex = anim.GetInteger(Consts.AnimatorParameters.AttackIndex);
             var maxCombo = playerWeaponControl.GetMaxCombo(leftAttack, isTwoHands);
 
             if (playerControl.CanCombo && (leftAttack || rightAttack))
@@ -143,8 +143,8 @@ namespace BoxSouls
                 attackIndex++;
                 attackIndex %= maxCombo;
 
-                anim.SetInteger(Consts.AnimatorParameters.ATTACK_INDEX, attackIndex);
-                anim.SetBool(Consts.AnimatorParameters.CAN_COMBO, false);
+                anim.SetInteger(Consts.AnimatorParameters.AttackIndex, attackIndex);
+                anim.SetBool(Consts.AnimatorParameters.CanCombo, false);
 
                 var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftAttack, attackIndex + 1);
                 PlayAnimAndSetInteracting(attackName, true);
@@ -159,19 +159,38 @@ namespace BoxSouls
 
         }
 
-        public void UpdateTwoHandsHold()
+        public void UpdateTwoHandsHolding()
         {
             //1 take back single weapon
-            //2 two hands holding weapon
+            //2 two hands holding right weapon
             if (inputControl.IsHoldRightWeapon())
             {
-                var isTwoHandsHoldCurrent = anim.GetBool(Consts.AnimatorParameters.IS_TWO_HANDS);
-                anim.SetBool(Consts.AnimatorParameters.IS_TWO_HANDS,!isTwoHandsHoldCurrent);
+                playerControl.isLeftHandPutBack = false;
+
+                var isTwoHandsHoldCurrent = anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
+                anim.SetBool(Consts.AnimatorParameters.IsTwoHands,!isTwoHandsHoldCurrent);
+                anim.SetBool(Consts.AnimatorParameters.IsLeftHandPutBack, false);
                 inputControl.ResetRightHandAttack();
 
                 if (isTwoHandsHoldCurrent)
                 {
                     playerWeaponControl.EquipWeapon(false);
+                }
+            }
+
+            //2 two hands holding left weapon
+            if (inputControl.IsHoldLeftWeapon())
+            {
+                playerControl.isLeftHandPutBack = true;
+
+                var isTwoHandsHoldCurrent = anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
+                anim.SetBool(Consts.AnimatorParameters.IsTwoHands, !isTwoHandsHoldCurrent);
+                anim.SetBool(Consts.AnimatorParameters.IsLeftHandPutBack, true);
+                inputControl.ResetLeftHandAttack();
+
+                if (isTwoHandsHoldCurrent)
+                {
+                    playerWeaponControl.EquipWeapon(true);
                 }
             }
         }

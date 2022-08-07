@@ -22,7 +22,7 @@ namespace BoxSouls
 
         private bool CanResume()
         {
-            var isInteracting = anim.GetBool(Consts.AnimatorParameters.IS_INTERACTING);
+            var isInteracting = anim.GetBool(Consts.AnimatorParameters.IsInteracting);
             if (isInteracting)
             {
                 lastStartResumeTime = Time.time;

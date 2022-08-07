@@ -11,17 +11,15 @@ namespace BoxSouls
         public class AnimatorParameters
         {
             public const string
-                ATTACK_1 = "Attack 1",
-                SPEED_X = "SpeedX",
-                SPEED_Z = "SpeedZ",
-                IS_INTERACTING = "IsInteracting",
-                IS_ROLLING = "IsRolling",
-                IS_FALLING = "IsFalling",
-                IS_JUMP_LUANCH = "IsJumpLaunch",
-                IS_LEFT_ATTACK="IsLeftAttack",
-                IS_TWO_HANDS = "IsTwoHands",
-                CAN_COMBO = "CanCombo",
-                ATTACK_INDEX = "AttackIndex"
+                SpeedX = "SpeedX",
+                SpeedZ = "SpeedZ",
+                IsTwoHands = "IsTwoHands",
+                IsInteracting = "IsInteracting",
+                IsFalling = "IsFalling",
+                IsJumpLaunch = "IsJumpLaunch",
+                CanCombo = "CanCombo",
+                AttackIndex = "AttackIndex",
+                IsLeftHandPutBack = nameof(IsLeftHandPutBack)
         ;
 
         }

@@ -8,7 +8,9 @@ using System;
 
 namespace BoxSouls
 {
-
+    /// <summary>
+    /// Update Player States
+    /// </summary>
     public class PlayerControl : CharacterControl
     {
         [Header("Components")]
@@ -101,14 +103,17 @@ namespace BoxSouls
         }
 
         public bool IsLockedTarget => attackTarget;
-        public bool IsInteracting => anim.GetBool(Consts.AnimatorParameters.IS_INTERACTING);
-        public bool IsFalling => anim.GetBool(Consts.AnimatorParameters.IS_FALLING);
+        public bool IsInteracting => anim.GetBool(Consts.AnimatorParameters.IsInteracting);
+        public bool IsFalling => anim.GetBool(Consts.AnimatorParameters.IsFalling);
         public bool IsGrounded => playerLocomotion.IsGrounded;
-        public bool IsJumpLaunch => anim.GetBool(Consts.AnimatorParameters.IS_JUMP_LUANCH);
-        public bool CanCombo => anim.GetBool(Consts.AnimatorParameters.CAN_COMBO);
-        public bool IsTwoHandsHolding => anim.GetBool(Consts.AnimatorParameters.IS_TWO_HANDS);
-        public bool isLeftAttacking;
+        public bool IsJumpLaunch => anim.GetBool(Consts.AnimatorParameters.IsJumpLaunch);
+        public bool CanCombo => anim.GetBool(Consts.AnimatorParameters.CanCombo);
+        public bool IsTwoHandsHolding => anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
 
+        public bool isLeftAttacking; // driving by PlayerAnim
+        public bool isLeftHandPutBack; // driving by PlayerAnim
+
+        #region Animation Event Receive
         public void OnAnimatorMoved(Vector3 velocity)
         {
             playerLocomotion.rootMotionVelocity = velocity;
@@ -124,9 +129,10 @@ namespace BoxSouls
             playerWeaponControl.CloseDamageTrigger(isLeftAttacking);
         }
 
-        public void OnPutBackWeapon(bool isLeftHand)
+        public void OnPutBackWeapon()
         {
-            playerWeaponControl.PutBackWeapon(isLeftHand);
+            playerWeaponControl.PutBackWeapon(isLeftHandPutBack);
         }
+        #endregion
     }
 }
