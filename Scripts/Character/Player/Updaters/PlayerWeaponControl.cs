@@ -92,6 +92,10 @@ namespace BoxSouls
 
             info.weaponDamageCollider = weaponInst.GetComponent<WeaponDamageCollider>();
             info.weaponDamageCollider.Init(playerControl);
+
+            // test only
+            var mr = weaponInst.GetComponentInChildren<MeshRenderer>();
+            mr.material.SetColor("_BaseColor", isLeft ? Color.red : Color.green);
         }
 
         public void Unequip(bool isLeft)

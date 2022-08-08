@@ -161,37 +161,49 @@ namespace BoxSouls
 
         public void UpdateTwoHandsHolding()
         {
-            //1 take back single weapon
-            //2 two hands holding right weapon
+            if (playerControl.IsInteracting)
+                return;
+
+            /**
+             * 1 take back left weapon
+             * 2 two hands holding right weapon
+             * 
+             * */
             if (inputControl.IsHoldRightWeapon())
             {
-                playerControl.isLeftHandPutBack = false;
-
-                var isTwoHandsHoldCurrent = anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
-                anim.SetBool(Consts.AnimatorParameters.IsTwoHands,!isTwoHandsHoldCurrent);
-                anim.SetBool(Consts.AnimatorParameters.IsLeftHandPutBack, false);
                 inputControl.ResetRightHandAttack();
-
-                if (isTwoHandsHoldCurrent)
-                {
-                    playerWeaponControl.EquipWeapon(false);
-                }
-            }
-
-            //2 two hands holding left weapon
-            if (inputControl.IsHoldLeftWeapon())
-            {
                 playerControl.isLeftHandPutBack = true;
 
                 var isTwoHandsHoldCurrent = anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
-                anim.SetBool(Consts.AnimatorParameters.IsTwoHands, !isTwoHandsHoldCurrent);
+                anim.SetBool(Consts.AnimatorParameters.IsTwoHands,!isTwoHandsHoldCurrent);
                 anim.SetBool(Consts.AnimatorParameters.IsLeftHandPutBack, true);
-                inputControl.ResetLeftHandAttack();
 
                 if (isTwoHandsHoldCurrent)
                 {
+                    // equip left and right weapon
+                    playerWeaponControl.EquipWeapon(false);
                     playerWeaponControl.EquipWeapon(true);
                 }
+                return;
+            }
+
+            //3 two hands holding left weapon
+            if (inputControl.IsHoldLeftWeapon())
+            {
+                inputControl.ResetLeftHandAttack();
+                playerControl.isLeftHandPutBack = false;
+
+                var isTwoHandsHoldCurrent = anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
+                anim.SetBool(Consts.AnimatorParameters.IsTwoHands, !isTwoHandsHoldCurrent);
+                anim.SetBool(Consts.AnimatorParameters.IsLeftHandPutBack, false);
+
+                if (isTwoHandsHoldCurrent)
+                {
+                    // equip left and right weapon
+                    playerWeaponControl.EquipWeapon(false);
+                    playerWeaponControl.EquipWeapon(true);
+                }
+                return;
             }
         }
     }
