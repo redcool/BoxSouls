@@ -109,6 +109,7 @@ namespace BoxSouls
         public bool IsJumpLaunch => anim.GetBool(Consts.AnimatorParameters.IsJumpLaunch);
         public bool CanCombo => anim.GetBool(Consts.AnimatorParameters.CanCombo);
         public bool IsTwoHandsHolding => anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
+        public bool IsTwoHandsHoldingLeftWeapon => IsTwoHandsHolding && !isLeftHandPutBack;
 
         public bool isLeftAttacking; // driving by PlayerAnim
         public bool isLeftHandPutBack; // driving by PlayerAnim

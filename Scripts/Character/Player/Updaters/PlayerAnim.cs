@@ -117,7 +117,7 @@ namespace BoxSouls
                 playerControl.isLeftAttacking = leftHandAttack;
 
                 var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftHandAttack, firstAttackIndex);
-                Debug.Log(attackName);
+                Debug.Log(attackName+", holding left? "+ playerControl.IsTwoHandsHoldingLeftWeapon);
                 PlayAnimAndSetInteracting(attackName, true);
                 playerStatesControl.ConsumeEnergy(25);
             }
@@ -174,7 +174,7 @@ namespace BoxSouls
                 inputControl.ResetRightHandAttack();
                 playerControl.isLeftHandPutBack = true;
 
-                var isTwoHandsHoldCurrent = anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
+                var isTwoHandsHoldCurrent = playerControl.IsTwoHandsHolding;
                 anim.SetBool(Consts.AnimatorParameters.IsTwoHands,!isTwoHandsHoldCurrent);
                 anim.SetBool(Consts.AnimatorParameters.IsLeftHandPutBack, true);
 
@@ -193,7 +193,7 @@ namespace BoxSouls
                 inputControl.ResetLeftHandAttack();
                 playerControl.isLeftHandPutBack = false;
 
-                var isTwoHandsHoldCurrent = anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
+                var isTwoHandsHoldCurrent = playerControl.IsTwoHandsHolding;
                 anim.SetBool(Consts.AnimatorParameters.IsTwoHands, !isTwoHandsHoldCurrent);
                 anim.SetBool(Consts.AnimatorParameters.IsLeftHandPutBack, false);
 
