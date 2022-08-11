@@ -130,13 +130,22 @@ namespace BoxSouls
             return RightWeaponItem.sprintAttackTwoHandsAnimId;
         }
 
-        public void OpenDamageTrigger(bool isLeftWeapon) {
-            var weaponInfo = isLeftWeapon ? leftHandWeaponInfo : rightHandWeaponInfo;
+        PlayerWeaponInfo GetTargetWeaponInfo()
+        {
+            var weaponInfo = playerControl.isLeftAttacking ? leftHandWeaponInfo : rightHandWeaponInfo;
+            if (playerControl.IsTwoHandsHolding)
+                weaponInfo = playerControl.IsTwoHandsHoldingLeftWeapon ? leftHandWeaponInfo : rightHandWeaponInfo;
+            return weaponInfo;
+        }
+
+        public void OpenDamageTrigger() {
+
+            var weaponInfo = GetTargetWeaponInfo();
             weaponInfo.weaponDamageCollider.OpenTrigger();
         }
-        public void CloseDamageTrigger(bool isLeftWeapon)
+        public void CloseDamageTrigger()
         {
-            var weaponInfo = isLeftWeapon ? leftHandWeaponInfo : rightHandWeaponInfo;
+            var weaponInfo = GetTargetWeaponInfo();
             weaponInfo.weaponDamageCollider.CloseTrigger();
         }
 

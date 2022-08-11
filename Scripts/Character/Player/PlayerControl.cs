@@ -122,12 +122,12 @@ namespace BoxSouls
 
         public override void OnOpenDamageTrigger()
         {
-            playerWeaponControl.OpenDamageTrigger(isLeftAttacking);
+            playerWeaponControl.OpenDamageTrigger();
         }
 
         public override void OnCloseDamageTrigger()
         {
-            playerWeaponControl.CloseDamageTrigger(isLeftAttacking);
+            playerWeaponControl.CloseDamageTrigger();
         }
 
         public void OnPutBackWeapon()
