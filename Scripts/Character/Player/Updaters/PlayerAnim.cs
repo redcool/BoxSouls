@@ -26,9 +26,9 @@ namespace BoxSouls
             UpdateTwoHandsHolding();
         }
 
-        public void PlayAnimAndSetInteracting(string stateName,bool isInteracting)
+        public void PlayAnimAndSetInteracting(string stateName,bool isInteracting,float transitionDuration=0.2f)
         {
-            anim.PlayAnimSetBool(stateName, Consts.AnimatorParameters.IsInteracting, isInteracting);
+            anim.PlayAnimSetBool(stateName, Consts.AnimatorParameters.IsInteracting, isInteracting,transitionDuration);
         }
 
         public void JumpLaunch()
@@ -147,7 +147,7 @@ namespace BoxSouls
                 anim.SetBool(Consts.AnimatorParameters.CanCombo, false);
 
                 var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftAttack, attackIndex + 1);
-                PlayAnimAndSetInteracting(attackName, true);
+                PlayAnimAndSetInteracting(attackName, true,0.1f);
                 playerStatesControl.ConsumeEnergy(25);
             }
         }
