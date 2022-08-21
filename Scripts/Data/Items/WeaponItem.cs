@@ -18,7 +18,7 @@ namespace BoxSouls
         public int sprintAttackRightHandAnimId = 3;
         public int sprintAttackTwoHandsAnimId = 2;
 
-
+        [Header("Combo")]
         public int comboCount = 3;
     }
 }

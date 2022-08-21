@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17f03db17553ef4899042dc75f6e5da, type: 3}
   m_Name: Sword1
   m_EditorClassIdentifier: 
-  spriteName: 
+  spriteName: sword1
   prefab: {fileID: 5101352493020611197, guid: 125759d141ab28741899c602d584da34, type: 3}
-  leftHandAnimName: LeftHandIdle
-  rightHandAnimName: RightHandIdle
-  twoHandsAnimName: TwoHandsIdle
+  leftHandAnimPrefix: oh_attack_
+  rightHandAnimPrefix: oh_attack_
+  twoHandsAnimPrefix: th_attack_
+  sprintAttackLeftHandAnimId: 3
+  sprintAttackRightHandAnimId: 3
+  sprintAttackTwoHandsAnimId: 2
+  comboCount: 3

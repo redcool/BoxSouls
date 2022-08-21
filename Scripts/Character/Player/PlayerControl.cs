@@ -41,6 +41,7 @@ namespace BoxSouls
         public List<BaseUpdater> lateUpdateList = new List<BaseUpdater>();
 
 
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -100,6 +101,16 @@ namespace BoxSouls
             {
                 lateUpdateList[i].LateUpdate();
             }
+        }
+
+        private void OnDestroy()
+        {
+            playerLocomotion.Destroy();
+            playerCamera.Destroy();
+            playerAnim.Destroy();
+            playerWeaponControl.Destroy();
+            playerUIControl.Destroy();
+            playerStatesControl.Destroy();
         }
 
         public bool IsLockedTarget => attackTarget;

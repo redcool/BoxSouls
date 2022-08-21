@@ -41,6 +41,9 @@ namespace BoxSouls
         public WeaponItem LeftWeaponItem => leftHandWeaponInfo.weaponItem;
         public WeaponItem RightWeaponItem => rightHandWeaponInfo.weaponItem;
 
+        //["Event")]
+        public event Action<bool> OnWeaponEquip;
+
         public override void Init(PlayerControl playerControl)
         {
             base.Init(playerControl);
@@ -81,6 +84,8 @@ namespace BoxSouls
             UpdateWeaponInfo(item, weaponInst.transform, isLeft);
 
             playerAnim.UpdateWeaponIdle(isLeft);
+
+            OnWeaponEquip?.Invoke(isLeft);
         }
 
         void UpdateWeaponInfo(WeaponItem weaponItem,Transform weaponInst,bool isLeft)
