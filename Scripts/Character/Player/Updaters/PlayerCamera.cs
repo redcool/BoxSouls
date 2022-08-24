@@ -15,6 +15,7 @@ namespace BoxSouls
         [Header("Camera")]
         public float cameraSensitive = 10;
         [Range(0,1)]public float virtualCameraSide = 0.5f;
+        public float cameraRotationSmoothSpeed = 20;
 
         float rotateX;
         float rotateY;
@@ -53,7 +54,8 @@ namespace BoxSouls
             if (playerControl.IsLockedTarget)
             {
                 var dir = playerLocomotion.moveDirToAttackTarget;
-                cameraLookTarget.forward = dir;
+                //cameraLookTarget.forward = Vector3.RotateTowards(cameraLookTarget.forward, dir,Time.deltaTime,0);
+                cameraLookTarget.forward = Vector3.Slerp(cameraLookTarget.forward, dir, cameraRotationSmoothSpeed * Time.deltaTime);
                 UpdateVirtualCameraSide(virtualCameraSide);
                 return;
             }
@@ -64,7 +66,9 @@ namespace BoxSouls
             rotateX = Mathf.Clamp(rotateX, -45, 45);
             rotateY %= 360;
 
-            cameraLookTarget.rotation = Quaternion.Euler(rotateX, rotateY, 0);
+            var targetRotation = Quaternion.Euler(rotateX, rotateY, 0);
+            cameraLookTarget.rotation = Quaternion.Lerp(cameraLookTarget.rotation, targetRotation, cameraRotationSmoothSpeed * Time.deltaTime);
+            //cameraLookTarget.rotation = Quaternion.RotateTowards(cameraLookTarget.rotation, targetRotation, 180*Time.deltaTime);
 
             UpdateVirtualCameraSide(0.5f);
         }

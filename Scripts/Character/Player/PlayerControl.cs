@@ -34,13 +34,12 @@ namespace BoxSouls
         [Header("Camera Look")]
         public Transform cameraLookTarget;
 
-
+        [Header("Screen Cursor ")]
+        public bool isLockCursor;
 
         public List<BaseUpdater> updateList = new List<BaseUpdater>();
         public List<BaseUpdater> fixedUpdateList = new List<BaseUpdater>();
         public List<BaseUpdater> lateUpdateList = new List<BaseUpdater>();
-
-
 
         // Start is called before the first frame update
         void Awake()
@@ -51,6 +50,12 @@ namespace BoxSouls
             anim = GetComponentInChildren<Animator>();
 
             InitUpdaters();
+
+            if (isLockCursor)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
 
         private void InitUpdaters()
@@ -122,6 +127,7 @@ namespace BoxSouls
         public bool IsTwoHandsHolding => anim.GetBool(Consts.AnimatorParameters.IsTwoHands);
         public bool IsTwoHandsHoldingLeftWeapon => IsTwoHandsHolding && !isLeftHandPutBack;
 
+        [Header("Attacking info")]
         public bool isLeftAttacking; // driving by PlayerAnim
         public bool isLeftHandPutBack; // driving by PlayerAnim
 

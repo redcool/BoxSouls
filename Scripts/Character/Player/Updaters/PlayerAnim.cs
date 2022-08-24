@@ -109,7 +109,7 @@ namespace BoxSouls
             var canAttack = (leftHandAttack || rightHandAttack); // trigger 
             canAttack = canAttack && !playerControl.IsInteracting;// condition
 
-            var firstAttackIndex = inputControl.isSprint ? playerWeaponControl.GetSprintAttackAnimId(leftHandAttack, rightHandAttack) : 1; // sprint use 3
+            var firstAttackIndex = inputControl.isSprint ? playerWeaponControl.GetSprintAttackAnimId(isTwoHands,leftHandAttack, rightHandAttack) : 1; // sprint use WeaponInfo, otherwist use 1
 
             if (canAttack)
             {

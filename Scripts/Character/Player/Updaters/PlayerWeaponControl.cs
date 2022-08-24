@@ -124,15 +124,17 @@ namespace BoxSouls
             return 1;
         }
 
-        public int GetSprintAttackAnimId(bool isLeftAttack, bool isRightAttack)
+        public int GetSprintAttackAnimId(bool isTwoHands,bool isLeftAttack, bool isRightAttack)
         {
+            if(isTwoHands)   
+                return RightWeaponItem.sprintAttackTwoHandsAnimId;
+
             if (isRightAttack && RightWeaponItem)
                 return RightWeaponItem.sprintAttackRightHandAnimId;
 
             if (isLeftAttack && LeftWeaponItem)
                 return LeftWeaponItem.sprintAttackLeftHandAnimId;
-            
-            return RightWeaponItem.sprintAttackTwoHandsAnimId;
+            return 1;
         }
 
         PlayerWeaponInfo GetTargetWeaponInfo()
