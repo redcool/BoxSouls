@@ -106,22 +106,24 @@ namespace BoxSouls
             //if (leftAttack)
             //    attackName += Consts.AnimatorStateNameComposition.LEFT_ATTACK_SUFFIX;
 
-            var canAttack = (leftHandAttack || rightHandAttack); // trigger 
-            canAttack = canAttack && !playerControl.IsInteracting;// condition
+            var isMainAttackTrigger = (leftHandAttack || rightHandAttack); // trigger 
+            isMainAttackTrigger = isMainAttackTrigger && !playerControl.IsInteracting;// condition
 
             var firstAttackIndex = inputControl.isSprint ? playerWeaponControl.GetSprintAttackAnimId(isTwoHands,leftHandAttack, rightHandAttack) : 1; // sprint use WeaponInfo, otherwist use 1
 
-            if (canAttack)
+            // 1 main attack or trigger combo
+            if (isMainAttackTrigger)
             {
                 
                 playerControl.isLeftAttacking = leftHandAttack;
 
                 var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftHandAttack, firstAttackIndex);
-                Debug.Log(attackName+", holding left? "+ playerControl.IsTwoHandsHoldingLeftWeapon);
+                Debug.Log($"main attack:{attackName}, holding left? { playerControl.IsTwoHandsHoldingLeftWeapon}");
                 PlayAnimAndSetInteracting(attackName, true);
                 playerStatesControl.ConsumeEnergy(25);
             }
 
+            // 2 cannot trigger main attack, try trigger combo attack
             UpdateComboAttack(leftHandAttack, rightHandAttack, isTwoHands);
 
             if (leftHandAttack)
@@ -130,12 +132,12 @@ namespace BoxSouls
                 inputControl.ResetRightHandAttack();
         }
 
-        void UpdateComboAttack(bool leftAttack,bool rightAttack,bool isTwoHands)
+        void UpdateComboAttack(bool leftHandAttack,bool rightHandAttack,bool isTwoHands)
         {
             var attackIndex = anim.GetInteger(Consts.AnimatorParameters.AttackIndex);
-            var maxCombo = playerWeaponControl.GetMaxCombo(leftAttack, isTwoHands);
+            var maxCombo = playerWeaponControl.GetMaxCombo(leftHandAttack, isTwoHands);
 
-            if (playerControl.CanCombo && (leftAttack || rightAttack))
+            if (playerControl.CanCombo && (leftHandAttack || rightHandAttack))
             {
                 //if (attackIndex >= 1)
                 //    Debug.Log("combo 2");
@@ -146,7 +148,9 @@ namespace BoxSouls
                 anim.SetInteger(Consts.AnimatorParameters.AttackIndex, attackIndex);
                 anim.SetBool(Consts.AnimatorParameters.CanCombo, false);
 
-                var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftAttack, attackIndex + 1);
+                var attackName = Consts.AnimatorStateNameComposition.GetAttackName(isTwoHands, leftHandAttack, attackIndex + 1);
+                Debug.Log("Combo attack :" + attackName);
+
                 PlayAnimAndSetInteracting(attackName, true,0.1f);
                 playerStatesControl.ConsumeEnergy(25);
             }
