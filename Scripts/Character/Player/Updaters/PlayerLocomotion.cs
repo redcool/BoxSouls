@@ -19,7 +19,7 @@ namespace BoxSouls
 
         [Header("State Vars")]
         public Vector3 moveDir;
-        public Vector3 moveDirToAttackTarget;
+        public Vector3 moveDirToLockedTarget;
         public float moveAmount;
         public Vector3 rootMotionVelocity;
 
@@ -45,23 +45,25 @@ namespace BoxSouls
             UpdateTryLock();
 
             if (playerControl.IsLockedTarget)
-                moveDirToAttackTarget = (playerControl.attackTarget.position - transform.position - Vector3.up*2);
+                moveDirToLockedTarget = (playerControl.attackTarget.position - transform.position - Vector3.up*2);
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
+            var deltaTime = Time.deltaTime;
             var moveScale = playerControl.IsInteracting ? 0 : 1;
-
-            moveDir *= moveScale;
+            var scaledMoveDir = moveDir * moveScale;
             //moveDirToAttackTarget *= moveScale;
 
-            var deltaTime = Time.deltaTime;
+            // 连击之间,可以改变方向
+            var rotatedMoveDir = playerControl.CanCombo ? moveDir : scaledMoveDir;
+            var rotatedSpeed = playerControl.CanCombo ? 8 : 10;
+            UpdateRotate(rotatedMoveDir, deltaTime, rotatedSpeed);
 
-            UpdateMove(moveDir);
-            UpdateRotate(moveDir, deltaTime);
-            UpdateJump(moveDir, deltaTime);
+            UpdateMove(scaledMoveDir);
+            UpdateJump(scaledMoveDir, deltaTime);
         }
 
         void UpdateTryLock()
@@ -107,11 +109,11 @@ namespace BoxSouls
             Debug.DrawRay(rigid.position, moveDir, Color.blue);
         }
 
-        void UpdateRotate(Vector3 moveDir, float deltaTime)
+        void UpdateRotate(Vector3 moveDir, float deltaTime,float rotateSpeed=10)
         {
             if (playerControl.IsLockedTarget)
             {
-                moveDir = moveDirToAttackTarget;
+                moveDir = moveDirToLockedTarget;
             }
 
             moveDir.y = 0;
@@ -121,7 +123,7 @@ namespace BoxSouls
 
             var lookTargetForward = playerControl.cameraLookTarget.forward;
 
-            transform.forward = Vector3.Slerp(transform.forward, moveDir, deltaTime * 10);
+            transform.forward = Vector3.Slerp(transform.forward, moveDir, deltaTime * rotateSpeed);
             playerControl.cameraLookTarget.forward = lookTargetForward;
         }
 

@@ -53,7 +53,7 @@ namespace BoxSouls
         {
             if (playerControl.IsLockedTarget)
             {
-                var dir = playerLocomotion.moveDirToAttackTarget;
+                var dir = playerLocomotion.moveDirToLockedTarget;
                 //cameraLookTarget.forward = Vector3.RotateTowards(cameraLookTarget.forward, dir,Time.deltaTime,0);
                 cameraLookTarget.forward = Vector3.Slerp(cameraLookTarget.forward, dir, cameraRotationSmoothSpeed * Time.deltaTime);
                 UpdateVirtualCameraSide(virtualCameraSide);

@@ -132,12 +132,22 @@ namespace BoxSouls
                 inputControl.ResetRightHandAttack();
         }
 
+        /// <summary>
+        /// 更新连击动作
+        /// 
+        /// </summary>
+        /// <param name="leftHandAttack"></param>
+        /// <param name="rightHandAttack"></param>
+        /// <param name="isTwoHands"></param>
         void UpdateComboAttack(bool leftHandAttack,bool rightHandAttack,bool isTwoHands)
         {
             var attackIndex = anim.GetInteger(Consts.AnimatorParameters.AttackIndex);
             var maxCombo = playerWeaponControl.GetMaxCombo(leftHandAttack, isTwoHands);
 
-            if (playerControl.CanCombo && (leftHandAttack || rightHandAttack))
+            var canCombo = playerControl.CanCombo && (leftHandAttack || rightHandAttack);
+            canCombo = canCombo && (leftHandAttack == playerControl.isLeftAttacking);
+
+            if (canCombo)
             {
                 //if (attackIndex >= 1)
                 //    Debug.Log("combo 2");

@@ -128,7 +128,7 @@ namespace BoxSouls
         public bool IsTwoHandsHoldingLeftWeapon => IsTwoHandsHolding && !isLeftHandPutBack;
 
         [Header("Attacking info")]
-        public bool isLeftAttacking; // driving by PlayerAnim
+        public bool isLeftAttacking; // attacking use left hand, driving by PlayerAnim
         public bool isLeftHandPutBack; // driving by PlayerAnim
 
         #region Animation Event Receive
