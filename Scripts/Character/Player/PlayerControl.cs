@@ -14,7 +14,7 @@ namespace BoxSouls
     public class PlayerControl : CharacterControl
     {
         [Header("Components")]
-        public InputControl inputControl;
+        public BaseInputControl inputControl;
         public Rigidbody rigid;
         public Transform camTr;
         public Animator anim;
@@ -44,7 +44,7 @@ namespace BoxSouls
         // Start is called before the first frame update
         void Awake()
         {
-            inputControl = GetComponent<InputControl>();
+            inputControl = GetComponent<BaseInputControl>();
             rigid = GetComponent<Rigidbody>();
             camTr = Camera.main.transform;
             anim = GetComponentInChildren<Animator>();

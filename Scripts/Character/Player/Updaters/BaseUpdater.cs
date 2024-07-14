@@ -12,7 +12,7 @@ namespace BoxSouls
     {
         protected PlayerControl playerControl;
         public Transform transform => playerControl.transform;
-        public InputControl inputControl => playerControl.inputControl;
+        public BaseInputControl inputControl => playerControl.inputControl;
         public Rigidbody rigid => playerControl.rigid;
         public Animator anim => playerControl.anim;
         public PlayerAnim playerAnim => playerControl.playerAnim;
